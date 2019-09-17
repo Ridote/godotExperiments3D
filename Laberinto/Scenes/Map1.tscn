@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/Floor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Wall.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=3]
 
 [node name="Map" type="Spatial"]
 
@@ -20,3 +21,6 @@ transform = Transform( -9.9757e-007, 0, 1, 0, 1, 0, -22.8217, 0, -4.37114e-008, 
 
 [node name="Wall4" parent="ExternalWalls" instance=ExtResource( 2 )]
 transform = Transform( 22.8217, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -19 )
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0 )
