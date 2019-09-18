@@ -1,0 +1,97 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Scenes/Portal.gd" type="Script" id=1]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+render_mode unshaded;
+
+uniform sampler2D refl_tx;
+
+void fragment() {
+	ALBEDO = texture(refl_tx, vec2(1.0-SCREEN_UV.x, SCREEN_UV.y)).rgb;
+}"
+
+[sub_resource type="ViewportTexture" id=4]
+viewport_path = NodePath("Viewport")
+
+[sub_resource type="ShaderMaterial" id=2]
+resource_local_to_scene = true
+shader = SubResource( 1 )
+shader_param/refl_tx = SubResource( 4 )
+
+[sub_resource type="PlaneMesh" id=3]
+material = SubResource( 2 )
+size = Vector2( 10, 10 )
+
+[sub_resource type="CubeMesh" id=5]
+
+[sub_resource type="SpatialMaterial" id=6]
+albedo_color = Color( 0, 1, 0.156863, 1 )
+
+[sub_resource type="CubeMesh" id=7]
+
+[sub_resource type="SpatialMaterial" id=8]
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="GDScript" id=10]
+script/source = "extends Camera
+
+func _process(_delta):
+	get_tree().call_group(Constants.G_PORTALS, \"updateCamera\", global_transform)"
+
+[sub_resource type="Animation" id=9]
+resource_name = "cameraMove"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( -14, 19, -8.30516e-007 ), Vector3( 14, 19, 0 ) ]
+}
+
+[node name="Portal" type="MeshInstance"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-008, -1, 0, 1, -4.37114e-008, 0, 0, 0 )
+mesh = SubResource( 3 )
+material/0 = null
+script = ExtResource( 1 )
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 500, 500 )
+
+[node name="Camera" type="Camera" parent="Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
+current = true
+
+[node name="dummy" type="Spatial" parent="."]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -21, 9.17939e-007 )
+mesh = SubResource( 5 )
+material/0 = SubResource( 6 )
+
+[node name="MeshInstance3" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -21, 9.17939e-007 )
+mesh = SubResource( 5 )
+material/0 = SubResource( 6 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="."]
+transform = Transform( 15.35, 0, 0, 0, 1, 2.79753e-007, 0, 2.79753e-007, 7.4, 0, -28, 1.22392e-006 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-008, 1, 0, -1, -4.37114e-008, -11.4228, 19, -7.54073e-007 )
+current = true
+script = SubResource( 10 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "cameraMove"
+anims/cameraMove = SubResource( 9 )
