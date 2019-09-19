@@ -1,72 +1,16 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=3 format=2]
 
 [sub_resource type="ViewportTexture" id=1]
 viewport_path = NodePath("Viewport")
 
 [sub_resource type="GDScript" id=2]
 
-[sub_resource type="CubeMesh" id=3]
-
-[sub_resource type="SpatialMaterial" id=4]
-albedo_color = Color( 0, 1, 0.156863, 1 )
-
-[sub_resource type="CubeMesh" id=5]
-
-[sub_resource type="SpatialMaterial" id=6]
-albedo_color = Color( 1, 0, 0, 1 )
-
-[sub_resource type="GDScript" id=7]
-script/source = "extends Camera
-
-func _process(_delta):
-	get_tree().call_group(Constants.G_PORTALS, \"updateCamera\", global_transform)"
-
-[sub_resource type="Animation" id=8]
-length = 2.0
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Camera:translation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector3( -6.4228, -7.64435e-008, 10 ), Vector3( 9.5772, -7.64435e-008, 10 ) ]
-}
-
 [node name="Spatial" type="Spatial"]
 
 [node name="Portal" type="Sprite3D" parent="."]
-transform = Transform( 1, 0, 0, 0, -0.996195, -0.0871558, 0, 0.0871558, -0.996195, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 texture = SubResource( 1 )
 script = SubResource( 2 )
-
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-008, -1, 0, 1, -4.37114e-008, 5, 3.41061e-013, -21 )
-mesh = SubResource( 3 )
-material/0 = SubResource( 4 )
-
-[node name="MeshInstance3" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-008, -1, 0, 1, -4.37114e-008, -4, 3.41061e-013, -21 )
-mesh = SubResource( 3 )
-material/0 = SubResource( 4 )
-
-[node name="MeshInstance2" type="MeshInstance" parent="."]
-transform = Transform( 15.35, 0, 0, 0, -3.23464e-007, -7.4, 0, 1, -4.37113e-008, 0, -7.95808e-013, -28 )
-mesh = SubResource( 5 )
-material/0 = SubResource( 6 )
-
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5772, -7.64435e-008, 10 )
-current = true
-script = SubResource( 7 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "cameraMove"
-anims/cameraMove = SubResource( 8 )
 
 [node name="Viewport" type="Viewport" parent="."]
 size = Vector2( 500, 500 )

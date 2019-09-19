@@ -27,4 +27,4 @@ transform = Transform( 22.8217, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -19 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 36, 0 )
 
 [node name="Portal" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, -0.996195, 0.0871558, 0, -0.0871558, -0.996195, 0, 8, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0 )
