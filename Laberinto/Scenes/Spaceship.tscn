@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scenes/Spaceship.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/GUI.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Particles/Trail.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Models/Airship/nave.glb" type="PackedScene" id=4]
+
+[sub_resource type="BoxShape" id=1]
+
+[node name="Spaceship" type="KinematicBody"]
+script = ExtResource( 1 )
+speed = 2000
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="Camera1st" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.67654 )
+far = 200.0
+
+[node name="FrontDirection" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10 )
+
+[node name="GUI" parent="." instance=ExtResource( 2 )]
+
+[node name="Trail" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1.19249e-008, 1, 0, -1, 1.19249e-008, -1.93703, 0, 4.89318 )
+
+[node name="Trail2" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1.19249e-008, 1, 0, -1, 1.19249e-008, 1.97087, 0, 5.07161 )
+
+[node name="Airship" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
+
+[node name="CameraBack" type="Camera" parent="."]
+transform = Transform( -1, 1.51808e-008, -8.60946e-008, 0, 0.984808, 0.173648, 8.74228e-008, 0.173648, -0.984808, 0, 3, -10 )
+
+[node name="CameraFollow" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.2277, 4.447, 0 )

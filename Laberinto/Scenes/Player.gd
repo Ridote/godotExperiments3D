@@ -35,7 +35,6 @@ func _process(delta):
 		velocity.y = 0.0
 		if (Input.is_action_pressed("ui_jump")):
 			velocity.y = delta * jumpSpeed
-		
 	velocity += direction
 	velocity = move_and_slide(velocity, Vector3(0.0, 1.0, 0.0))
 	velocity.x = lerp(velocity.x,  0, lerpFactor)
