@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Spatial
+
+func _ready():
+	yield(get_tree().create_timer(0.5), \"timeout\")
+	print('done')
+	move()
+
+func move():
+	var my_tween = Tween.new()
+	get_tree().get_root().add_child(my_tween)
+	my_tween.interpolate_property($Character,\"translation\", $Character.translation, $Position3D.translation, 0.5,Tween.TRANS_LINEAR,Tween.EASE_IN_OUT)
+	my_tween.start()
+	yield(my_tween, \"tween_completed\")
+	print('completed')"
+
+[sub_resource type="CapsuleMesh" id=2]
+
+[node name="Test" type="Spatial"]
+script = SubResource( 1 )
+
+[node name="Character" type="Spatial" parent="."]
+
+[node name="MeshInstance" type="MeshInstance" parent="Character"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.7, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Character2" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.8691, 0, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Character2"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.7, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 0.681421, 0.425968, -0.595161, 0, 0.813182, 0.582009, 0.731892, -0.396593, 0.554119, -8.21221, 12.1698, 5.3464 )
+
+[node name="Position3D" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.8512, 0, 0 )

@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "# warning-ignore-all:unused_class_variable
+extends Node
+
+class_name Stats
+
+signal KO
+
+export var MAX_HP : float = 5.0
+export var MAX_MP : float = 5.0
+var HP : float
+var MP : float
+
+export var STR : int = 2
+export var AGI : int = 2
+export var INT : int = 2
+export var SPD : int = 2
+
+func initialize(_str : int, _agi : int, _int : int, _spd : int = 1):
+	STR = _str
+	AGI = _agi
+	INT = _int
+	SPD = _spd
+	HP = MAX_HP
+	MP = MAX_MP
+
+func takeDamage(fis : float, mag : float, trueDmg:float = 0.0):
+	HP -= fis+mag+trueDmg
+	if(HP <= 0):
+		emit_signal(\"KO\")
+
+func heal(amount : float) -> void:
+	HP += amount
+	if HP > MAX_HP:
+		HP = MAX_HP"
+
+[node name="Stats" type="Node"]
+script = SubResource( 1 )
