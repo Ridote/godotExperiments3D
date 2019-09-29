@@ -1,3 +1,28 @@
-[gd_scene format=2]
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://GUI/BattleSystem/BattleGUI.tscn" type="PackedScene" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node
+
+# warning-ignore:unused_class_variable
+var characterScene = preload(\"res://Scenes/BattleSystem/BattleCharacter.tscn\")
+
+var turns : int = 0
+
+# warning-ignore:unused_class_variable
+export var enemies : Array
+
+func _ready():
+	if $BattleGUI.connect(\"nextTurn\", self, \"nextTurn\"):
+		OS.alert(\"Error connecting next turn\")
+
+func nextTurn() -> void:
+	turns += 1
+	print(\"nextTurn!\")"
 
 [node name="BattleManager" type="Node"]
+script = SubResource( 1 )
+enemies = [  ]
+
+[node name="BattleGUI" parent="." instance=ExtResource( 1 )]

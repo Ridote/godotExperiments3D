@@ -1,0 +1,102 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+signal nextTurn
+
+func _on_nextTurn_pressed():
+	emit_signal(\"nextTurn\")"
+
+[node name="BattleGUI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 1 )
+
+[node name="TurnGUI" type="PanelContainer" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -106.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HSplitContainer" type="HSplitContainer" parent="TurnGUI"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 99.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CharactersTurn" type="VBoxContainer" parent="TurnGUI/HSplitContainer"]
+margin_right = 925.0
+margin_bottom = 92.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RidoTurn" type="HBoxContainer" parent="TurnGUI/HSplitContainer/CharactersTurn"]
+margin_right = 925.0
+margin_bottom = 14.0
+
+[node name="Label" type="Label" parent="TurnGUI/HSplitContainer/CharactersTurn/RidoTurn"]
+margin_right = 28.0
+margin_bottom = 14.0
+text = "Rido"
+
+[node name="ProgressBar" type="ProgressBar" parent="TurnGUI/HSplitContainer/CharactersTurn/RidoTurn"]
+margin_left = 32.0
+margin_right = 925.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+value = 70.0
+
+[node name="AskyTurn" type="HBoxContainer" parent="TurnGUI/HSplitContainer/CharactersTurn"]
+margin_top = 18.0
+margin_right = 925.0
+margin_bottom = 32.0
+
+[node name="Label" type="Label" parent="TurnGUI/HSplitContainer/CharactersTurn/AskyTurn"]
+margin_right = 30.0
+margin_bottom = 14.0
+text = "Asky"
+
+[node name="ProgressBar" type="ProgressBar" parent="TurnGUI/HSplitContainer/CharactersTurn/AskyTurn"]
+margin_left = 34.0
+margin_right = 925.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+value = 50.0
+
+[node name="Actions" type="VBoxContainer" parent="TurnGUI/HSplitContainer"]
+margin_left = 937.0
+margin_right = 1010.0
+margin_bottom = 92.0
+
+[node name="Attack" type="Button" parent="TurnGUI/HSplitContainer/Actions"]
+margin_right = 73.0
+margin_bottom = 20.0
+text = "Attack"
+
+[node name="Magic" type="Button" parent="TurnGUI/HSplitContainer/Actions"]
+margin_top = 24.0
+margin_right = 73.0
+margin_bottom = 44.0
+text = "Magic"
+
+[node name="Items" type="Button" parent="TurnGUI/HSplitContainer/Actions"]
+margin_top = 48.0
+margin_right = 73.0
+margin_bottom = 68.0
+text = "Items"
+
+[node name="PassTurn" type="Button" parent="TurnGUI/HSplitContainer/Actions"]
+margin_top = 72.0
+margin_right = 73.0
+margin_bottom = 92.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Pass Turn"
+[connection signal="pressed" from="TurnGUI/HSplitContainer/Actions/PassTurn" to="." method="_on_nextTurn_pressed"]

@@ -27,6 +27,7 @@ func initialize(_str : int, _agi : int, _int : int, _spd : int = 1):
 	MP = MAX_MP
 
 func takeDamage(fis : float, mag : float, trueDmg:float = 0.0):
+	#TODO
 	HP -= fis+mag+trueDmg
 	if(HP <= 0):
 		emit_signal(\"KO\")
