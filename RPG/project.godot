@@ -24,6 +24,10 @@ config/name="RPG"
 run/main_scene="res://Scenes/Test.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Players="*res://Autoloads/Players.gd"
+
 [debug]
 
 gdscript/warnings/treat_warnings_as_errors=true

@@ -1,0 +1,32 @@
+[gd_scene format=2]
+
+[node name="Actions" type="VBoxContainer"]
+editor/display_folded = true
+margin_left = 937.0
+margin_right = 1010.0
+margin_bottom = 92.0
+
+[node name="Attack" type="Button" parent="."]
+margin_right = 73.0
+margin_bottom = 20.0
+text = "Attack"
+
+[node name="Magic" type="Button" parent="."]
+margin_top = 24.0
+margin_right = 73.0
+margin_bottom = 44.0
+text = "Magic"
+
+[node name="Items" type="Button" parent="."]
+margin_top = 48.0
+margin_right = 73.0
+margin_bottom = 68.0
+text = "Items"
+
+[node name="PassTurn" type="Button" parent="."]
+margin_top = 72.0
+margin_right = 73.0
+margin_bottom = 92.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Pass Turn"

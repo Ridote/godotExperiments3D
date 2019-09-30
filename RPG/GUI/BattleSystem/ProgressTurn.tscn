@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends HBoxContainer
+
+export var char_name = \"Rido\"
+
+func _ready():
+	$Name.text = char_name
+
+func setName(new_name : String) -> void:
+	char_name = new_name
+	$Name.text = new_name
+
+func setProgress(progress):
+	$ProgressBar.value = progress"
+
+[node name="ProgressTurn" type="HBoxContainer"]
+margin_right = 925.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+script = SubResource( 1 )
+
+[node name="Name" type="Label" parent="."]
+margin_right = 28.0
+margin_bottom = 14.0
+size_flags_vertical = 1
+text = "Rido"
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+margin_left = 32.0
+margin_right = 925.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+value = 70.0

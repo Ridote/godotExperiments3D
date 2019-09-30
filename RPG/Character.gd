@@ -3,8 +3,13 @@ extends Spatial
 
 class_name Character
 
+var ally : int = -1
+
 func initialize(_str, _agi, _int) -> void:
 	$Stats.initialize(_str, _agi, _int)
+
+func setAlly(idx):
+	ally = idx
 
 func attack(enemy : Character, duration : float = 2.0):
 	var tween : Tween = Tween.new()

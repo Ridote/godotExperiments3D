@@ -8,6 +8,7 @@ class_name Stats
 
 signal KO
 
+export var char_name : String = 'Default name'
 export var MAX_HP : float = 5.0
 export var MAX_MP : float = 5.0
 var HP : float
@@ -18,11 +19,16 @@ export var AGI : int = 2
 export var INT : int = 2
 export var SPD : int = 2
 
-func initialize(_str : int, _agi : int, _int : int, _spd : int = 1):
+func setName(new_name : String) -> void:
+	char_name = new_name
+	
+func initialize(_str : int, _agi : int, _int : int, _spd : int = 1, _MAX_HP : float = 5, _MAX_MP  : float = 5) -> void:
 	STR = _str
 	AGI = _agi
 	INT = _int
 	SPD = _spd
+	MAX_HP = _MAX_HP
+	MAX_MP = _MAX_MP
 	HP = MAX_HP
 	MP = MAX_MP
 
