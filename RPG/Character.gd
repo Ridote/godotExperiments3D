@@ -1,14 +1,17 @@
 extends Spatial
 
-
+const STATS_FACTORY = preload("res://Scenes/Stats.tscn")
 class_name Character
 
 var ally : int = -1
-
-func initialize(_str, _agi, _int) -> void:
-	$Stats.initialize(_str, _agi, _int)
-
+var stats
+func initialize(char_name, _str, _agi, _int, _spd, HP, MP) -> void:
+	stats = STATS_FACTORY.instance()
+	stats.initialize(_str, _agi, _int, _spd, HP, MP)
+	stats.setName(char_name)
+	
 func setAlly(idx):
+	stats = null
 	ally = idx
 
 func attack(enemy : Character, duration : float = 2.0):
@@ -28,6 +31,12 @@ func attack(enemy : Character, duration : float = 2.0):
 	tween.start()
 	yield(tween, "tween_completed")
 	print("finished")
+
+func getStats() -> int:
+	if(ally == -1):
+		return stats
+	else:
+		return Players.players[ally]
 
 func getFrontPosition() -> Vector3:
 	return transform.origin + $FrontPosition.translation

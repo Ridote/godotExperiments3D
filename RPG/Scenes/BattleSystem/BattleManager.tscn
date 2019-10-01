@@ -10,28 +10,36 @@ var characterScene = preload(\"res://Scenes/BattleSystem/BattleCharacter.tscn\")
 
 var turns : int = 0
 
-# warning-ignore:unused_class_variable
-export var enemies : Array
+var enemies = []
+var allies = []
 
 func _ready():
 	if $BattleGUI.connect(\"nextTurn\", self, \"nextTurn\"):
 		OS.alert(\"Error connecting next turn\")
-	print(Players.players.size())
+	
+	var positionOffset = 0
 	for player_id in range(0,Players.players.size()):
-		print(player_id)
 		var new_character = characterScene.instance()
 		new_character.setAlly(player_id)
 		new_character.transform.origin = $Allies.transform.origin
+		new_character.transform.origin.z += positionOffset
+		positionOffset += 5
+		allies.push_back(new_character)
 		add_child(new_character)
-		
-
+	
+	#TODO Enemies
+	var new_character = characterScene.instance()
+	new_character.transform.origin = $Enemies.transform.origin
+	new_character.initialize(\"Dago\", 12, 14, 15, 5, 25, 30)
+	enemies.push_back(new_character)
+	add_child(new_character)
+	
 func nextTurn() -> void:
 	turns += 1
 	print(\"nextTurn!\")"
 
 [node name="BattleManager" type="Node"]
 script = SubResource( 1 )
-enemies = [  ]
 
 [node name="BattleGUI" parent="." instance=ExtResource( 1 )]
 
