@@ -39,6 +39,7 @@ Los mensajes irán codificados con MSGPack. Se puede encontrar la librería para
     - `playerState` ID, [state]
     - `pos` ID, PX, PY, PZ, RX, RZ
 - Actiones
+    - `inventory` ID
     - `useItem` ID, itemID
     - `newItem` ID, itemID
     - `deleteItem` ID, itemID
