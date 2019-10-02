@@ -30,7 +30,7 @@ Los mensajes irán codificados con MSGPack. Se puede encontrar la librería para
 ### Mensajes servidor a cliente
 
 - Admin
-    - `auth` status
+    - `auth` success, msg
     - `newPlayer` id, name, model3D
 - Eventos
     - 
