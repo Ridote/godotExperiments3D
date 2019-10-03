@@ -26,7 +26,11 @@ config/icon="res://icon.png"
 
 [autoload]
 
+Network="*res://Autoloads/Networking/Network.gd"
+msgpack="*res://Autoloads/msgpack.gd"
 Players="*res://Autoloads/Players.gd"
+Logger="*res://Autoloads/Logger.gd"
+Groups="*res://Autoloads/Groups.gd"
 
 [debug]
 
