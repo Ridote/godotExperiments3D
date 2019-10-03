@@ -15,6 +15,7 @@ Los mensajes irán codificados con MSGPack. Se puede encontrar la librería para
 - Admin
     - `login` username, password
     - `register` username, password, email
+    - `newPlayer` name, class?
 - Mundo
     - `pos` ID, PX, PY, PZ, RX, RY
 - Inventario
@@ -31,12 +32,12 @@ Los mensajes irán codificados con MSGPack. Se puede encontrar la librería para
 
 - Admin
     - `auth` success, msg
-    - `newPlayer` ID, name, model3D
+    - `newPlayer` ID, name, model3D, owner (boolean)
 - Eventos
     - 
 - Info
-    - `playerStats` ID, [stats]
-    - `playerState` ID, [state]
+    - `playerStats` ID, STR, AGI, INT
+    - `playerState` ID, HP, MP
     - `pos` ID, PX, PY, PZ, RX, RZ
 - Actiones
     - `inventory` ID
