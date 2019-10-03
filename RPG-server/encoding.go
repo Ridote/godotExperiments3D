@@ -5,7 +5,7 @@ import "fmt"
 func encodeMsg(kind string, payload interface{}) []byte {
 	switch kind {
 	case "auth":
-		r := payload.(Auth)
+		r := payload.(mAuth)
 		p, _ := r.MarshalMsg(nil)
 		m := MSG{
 			Kind:    kind,
@@ -29,7 +29,7 @@ func decodeMsg(m []byte) interface{} {
 
 	switch msg.Kind {
 	case "login":
-		var r Login
+		var r mLogin
 		_, err := r.UnmarshalMsg([]byte(aux))
 		if err != nil {
 			fmt.Println("case Login unmarshall Error:", err)
