@@ -31,7 +31,7 @@ Los mensajes irán codificados con MSGPack. Se puede encontrar la librería para
 
 - Admin
     - `auth` success, msg
-    - `newPlayer` id, name, model3D
+    - `newPlayer` ID, name, model3D
 - Eventos
     - 
 - Info
@@ -45,7 +45,7 @@ Los mensajes irán codificados con MSGPack. Se puede encontrar la librería para
     - `equipItem` ID, itemID
     - `unequipItem` ID, itemID
     - `question` ID, targetID, options
-    - `talk` id, targetID, text
+    - `talk` ID, targetID, text
 
 ---
 
