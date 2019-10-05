@@ -18,7 +18,7 @@ func _ready():
 	var url = "ws://pc.galax.be:1616"
 	# var url = "ws://echo.websocket.org"
 	Logger.info("Connecting to " + url, Groups.get.NETWORKING)
-	ws.connect_to_url(url)
+	#ws.connect_to_url(url)
 	
 	
 func _connection_established(protocol):

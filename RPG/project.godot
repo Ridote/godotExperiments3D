@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="RPG"
-run/main_scene="res://Scenes/Test.tscn"
+run/main_scene="res://GUI/StartMenu/LogSign.tscn"
 config/icon="res://icon.png"
 
 [autoload]
