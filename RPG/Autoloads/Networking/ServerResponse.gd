@@ -3,23 +3,37 @@
 extends Node
 
 const RESPONSE_TYPE = {
-	auth = "auth"
+	auth = "auth",
+	signup = "signup"
 }
 
+signal auth_success(success)
+signal signup_success(success)
+
 func processResponse(packet):
-	Logger.info("Packet received(" + packet.type + ")", Groups.get.NETWORKING)
+	Logger.info("Packet received(" + packet.type + ")", Groups.NETWORKING)
 	match packet.type:
 		RESPONSE_TYPE.auth:
 			auth(packet.payload.success, packet.payload.msg)
-
-
+		RESPONSE_TYPE.signup:
+			signup(packet.payload.success, packet.payload.msg)
 
 # Admin
 func auth(status, msg = ""):
 	if status:
 		Logger.info(msg, "Networking")
+		emit_signal("auth_success", true)
 	else:
 		Logger.error(msg, "Networking")
+		emit_signal("auth_success", false)
+
+func signup(status, msg=""):
+	if status:
+		Logger.info(msg, "Networking")
+		emit_signal("signup_success", true)
+	else:
+		Logger.error(msg, "Networking")
+		emit_signal("signup_success", false)
 
 func newPlayer(id, name, model3D):
 	pass

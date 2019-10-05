@@ -9,9 +9,13 @@ onready var password = $VBoxContainer/HBoxContainer/VBoxContainer2/passwordEdit
 
 func _ready():
 	registerButton.connect(\"pressed\", self, \"sendRegister\")
-
+	Network.serverResponse.connect(\"signup_success\", self, \"on_signup\")
+	
 func sendRegister():
-	print(username.text, password.text)"
+	Network.clientRequest.signup(username.text, password.text)
+
+func on_signup(success):
+	print(success)"
 
 [node name="Signup" type="PanelContainer"]
 anchor_right = 1.0

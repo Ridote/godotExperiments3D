@@ -7,34 +7,33 @@ var clientRequest = null
 
 var ws = null
 
+func _enter_tree():
+	# We really want to do this before all the manbo jumbo because we want to connect signals from other nodes
+	serverResponse = SERVER_RESPONSE_FACTORY.new()
+	clientRequest = CLIENT_REQUEST_FACTORY.new()
+	
 func _ready():
 	ws = WebSocketClient.new()
 	ws.set_verify_ssl_enabled(false)
-	
 	ws.connect("connection_established", self, "_connection_established")
 	ws.connect("connection_closed", self, "_connection_closed")
 	ws.connect("connection_error", self, "_connection_error")
-	
 	#var url = "ws://pc.galax.be:1616"
 	var url = "ws://localhost:1616"
 	# var url = "ws://echo.websocket.org"
-	Logger.info("Connecting to " + url, Groups.get.NETWORKING)
+	Logger.info("Connecting to " + url, Groups.NETWORKING)
 	ws.connect_to_url(url)
 	
 	
 func _connection_established(protocol):
-	Logger.info("Connection established with protocol: " + protocol, Groups.get.NETWORKING)
-	serverResponse = SERVER_RESPONSE_FACTORY.new()
-	clientRequest = CLIENT_REQUEST_FACTORY.new()
+	Logger.info("Connection established with protocol: " + protocol, Groups.NETWORKING)
 	clientRequest.initRequester(ws)
 	
-	clientRequest.login()
-	
 func _connection_closed(arg):
-	Logger.info("Connection closed" + arg, Groups.get.NETWORKING)
+	Logger.info("Connection closed" + arg, Groups.NETWORKING)
 
 func _connection_error():
-	Logger.error("Connection error", Groups.get.NETWORKING)
+	Logger.error("Connection error", Groups.NETWORKING)
 
 func _process(delta):
 	delta = 1

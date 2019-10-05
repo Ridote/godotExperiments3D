@@ -20,9 +20,9 @@ func sendRequest(_type, _payload):
 	
 	ws.get_peer(1).put_packet(msg)
 
-func login():
-	sendRequest(REQUEST_TYPE.login, {username="Rido", password="123456"})
+func login(username, password):
+	sendRequest(REQUEST_TYPE.login, {username=username, password=password})
 
-func signup():
-	sendRequest(REQUEST_TYPE.login, {username="Rido", password="123456"})
+func signup(username, password):
+	sendRequest(REQUEST_TYPE.login, {username=username, password=password})
 	
