@@ -26,7 +26,7 @@ rect_min_size = Vector2( 512, 150 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="LoginTab" type="Tabs" parent="CenterContainer/TabContainer"]
+[node name="Login" type="Tabs" parent="CenterContainer/TabContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -36,9 +36,9 @@ margin_bottom = -4.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Login" parent="CenterContainer/TabContainer/LoginTab" instance=ExtResource( 1 )]
+[node name="Login" parent="CenterContainer/TabContainer/Login" instance=ExtResource( 1 )]
 
-[node name="SignUpTab" type="Tabs" parent="CenterContainer/TabContainer"]
+[node name="Sign Up" type="Tabs" parent="CenterContainer/TabContainer"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -47,4 +47,4 @@ margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 
-[node name="Signup" parent="CenterContainer/TabContainer/SignUpTab" instance=ExtResource( 2 )]
+[node name="Signup" parent="CenterContainer/TabContainer/Sign Up" instance=ExtResource( 2 )]

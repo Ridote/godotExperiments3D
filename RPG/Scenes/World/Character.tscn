@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends KinematicBody
+
+func _ready():
+	add_to_group(Groups.get.CHARACTER)
+var model = null
+func setModel(_model):
+	model = _model.instance()
+	self.add_child(model)
+	
+func animate(animation : String) -> void:
+	model.get_node(\"AnimationPlayer\").play(animation)
+
+func setPosition(newTranslation : Vector3, newRotation : Vector3) -> void:
+	translation = newTranslation
+	rotation = newRotation
+"
+
+[node name="Character" type="KinematicBody"]
+script = SubResource( 1 )

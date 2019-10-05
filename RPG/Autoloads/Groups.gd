@@ -2,5 +2,6 @@
 extends Node
 
 const get = {
-	NETWORKING =  "Networking"
+	NETWORKING =  "Networking",
+	CHARACTER = "Character"
 }

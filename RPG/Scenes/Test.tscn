@@ -3,7 +3,17 @@
 [ext_resource path="res://Scenes/BattleSystem/BattleManager.tscn" type="PackedScene" id=1]
 
 [sub_resource type="GDScript" id=1]
-script/source = "extends Spatial"
+script/source = "extends Spatial
+const CHAR_FACTORY = preload(\"res://Scenes/World/Character.tscn\")
+const model = preload(\"res://Models/monigote.tscn\")
+func _ready():
+	var new_char = CHAR_FACTORY.instance()
+	new_char.setModel(model)
+	new_char.set_name(\"new_char\")
+	add_child(new_char)
+	new_char.animate(\"walk\")
+	
+	"
 
 [node name="Test" type="Spatial"]
 script = SubResource( 1 )

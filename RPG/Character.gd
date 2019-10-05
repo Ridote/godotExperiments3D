@@ -1,7 +1,6 @@
 extends Spatial
 
 const STATS_FACTORY = preload("res://Scenes/Stats.tscn")
-class_name Character
 
 var ally : int = -1
 var stats
@@ -14,7 +13,7 @@ func setAlly(idx):
 	stats = null
 	ally = idx
 
-func attack(enemy : Character, duration : float = 2.0):
+func attack(enemy, duration : float = 2.0):
 	var tween : Tween = Tween.new()
 	var currentPosition : Vector3 = translation
 	# We need to calculate the offset between global positions and apply that to a local one since tween doesn't seem to manage well global positions through transform.origin

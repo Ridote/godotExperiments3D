@@ -43,10 +43,10 @@ func handle(w http.ResponseWriter, r *http.Request) {
 				msgHandler(message)
 			} else {
 				// read
-				l, ok := decodeMsg(message).(Login)
+				l, ok := decodeMsg(message).(mcLogin)
 				if !ok {
 					fmt.Println("invalid msg sent, when not authenticated you can only send 'login' command")
-					c.WriteMessage(mt, encodeMsg("auth", Auth{
+					c.WriteMessage(mt, encodeMsg("auth", msAuth{
 						Msg:     "invalid msg sent, when not authenticated you can only send 'login' command",
 						Success: false,
 					}))
@@ -54,12 +54,12 @@ func handle(w http.ResponseWriter, r *http.Request) {
 				}
 				if l.Username == "Rido" {
 					u.Username = l.Username
-					c.WriteMessage(mt, encodeMsg("auth", Auth{
+					c.WriteMessage(mt, encodeMsg("auth", msAuth{
 						Msg:     "authentication succesful!",
 						Success: true,
 					}))
 				} else {
-					c.WriteMessage(mt, encodeMsg("auth", Auth{
+					c.WriteMessage(mt, encodeMsg("auth", msAuth{
 						Msg:     "invalid user!",
 						Success: false,
 					}))

@@ -6,6 +6,7 @@ import (
 )
 
 //go:generate msgp
+//msgp:ignore User
 
 // User is an user
 type User struct {

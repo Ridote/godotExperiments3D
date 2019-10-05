@@ -1,7 +1,8 @@
 extends Node
 
 const REQUEST_TYPE = {
-	login = "login"
+	login = "login",
+	signup = "signup"
 }
 
 var ws = null
@@ -20,5 +21,8 @@ func sendRequest(_type, _payload):
 	ws.get_peer(1).put_packet(msg)
 
 func login():
+	sendRequest(REQUEST_TYPE.login, {username="Rido", password="123456"})
+
+func signup():
 	sendRequest(REQUEST_TYPE.login, {username="Rido", password="123456"})
 	

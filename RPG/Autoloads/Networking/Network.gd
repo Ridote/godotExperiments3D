@@ -15,10 +15,11 @@ func _ready():
 	ws.connect("connection_closed", self, "_connection_closed")
 	ws.connect("connection_error", self, "_connection_error")
 	
-	var url = "ws://pc.galax.be:1616"
+	#var url = "ws://pc.galax.be:1616"
+	var url = "ws://localhost:1616"
 	# var url = "ws://echo.websocket.org"
 	Logger.info("Connecting to " + url, Groups.get.NETWORKING)
-	#ws.connect_to_url(url)
+	ws.connect_to_url(url)
 	
 	
 func _connection_established(protocol):
