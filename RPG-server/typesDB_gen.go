@@ -7,6 +7,563 @@ import (
 )
 
 // DecodeMsg implements msgp.Decodable
+func (z *DBCharacter) DecodeMsg(dc *msgp.Reader) (err error) {
+	var field []byte
+	_ = field
+	var zb0001 uint32
+	zb0001, err = dc.ReadMapHeader()
+	if err != nil {
+		err = msgp.WrapError(err)
+		return
+	}
+	for zb0001 > 0 {
+		zb0001--
+		field, err = dc.ReadMapKeyPtr()
+		if err != nil {
+			err = msgp.WrapError(err)
+			return
+		}
+		switch msgp.UnsafeString(field) {
+		case "Owner":
+			var zb0002 uint32
+			zb0002, err = dc.ReadMapHeader()
+			if err != nil {
+				err = msgp.WrapError(err, "Owner")
+				return
+			}
+			for zb0002 > 0 {
+				zb0002--
+				field, err = dc.ReadMapKeyPtr()
+				if err != nil {
+					err = msgp.WrapError(err, "Owner")
+					return
+				}
+				switch msgp.UnsafeString(field) {
+				case "Username":
+					z.Owner.Username, err = dc.ReadString()
+					if err != nil {
+						err = msgp.WrapError(err, "Owner", "Username")
+						return
+					}
+				case "Password":
+					z.Owner.Password, err = dc.ReadString()
+					if err != nil {
+						err = msgp.WrapError(err, "Owner", "Password")
+						return
+					}
+				case "inventory":
+					err = z.Owner.Inventory.DecodeMsg(dc)
+					if err != nil {
+						err = msgp.WrapError(err, "Owner", "Inventory")
+						return
+					}
+				default:
+					err = dc.Skip()
+					if err != nil {
+						err = msgp.WrapError(err, "Owner")
+						return
+					}
+				}
+			}
+		case "PX":
+			z.PX, err = dc.ReadInt()
+			if err != nil {
+				err = msgp.WrapError(err, "PX")
+				return
+			}
+		case "PY":
+			z.PY, err = dc.ReadInt()
+			if err != nil {
+				err = msgp.WrapError(err, "PY")
+				return
+			}
+		case "PZ":
+			z.PZ, err = dc.ReadInt()
+			if err != nil {
+				err = msgp.WrapError(err, "PZ")
+				return
+			}
+		case "RX":
+			z.RX, err = dc.ReadInt()
+			if err != nil {
+				err = msgp.WrapError(err, "RX")
+				return
+			}
+		case "RZ":
+			z.RZ, err = dc.ReadInt()
+			if err != nil {
+				err = msgp.WrapError(err, "RZ")
+				return
+			}
+		case "name":
+			z.Name, err = dc.ReadString()
+			if err != nil {
+				err = msgp.WrapError(err, "Name")
+				return
+			}
+		case "class":
+			z.Class, err = dc.ReadString()
+			if err != nil {
+				err = msgp.WrapError(err, "Class")
+				return
+			}
+		case "HP":
+			z.HP, err = dc.ReadInt()
+			if err != nil {
+				err = msgp.WrapError(err, "HP")
+				return
+			}
+		case "MP":
+			z.MP, err = dc.ReadInt()
+			if err != nil {
+				err = msgp.WrapError(err, "MP")
+				return
+			}
+		case "currentHP":
+			z.CurrentHP, err = dc.ReadInt()
+			if err != nil {
+				err = msgp.WrapError(err, "CurrentHP")
+				return
+			}
+		case "currentMP":
+			z.CurrentMP, err = dc.ReadInt()
+			if err != nil {
+				err = msgp.WrapError(err, "CurrentMP")
+				return
+			}
+		case "STR":
+			z.STR, err = dc.ReadInt()
+			if err != nil {
+				err = msgp.WrapError(err, "STR")
+				return
+			}
+		case "AGI":
+			z.AGI, err = dc.ReadInt()
+			if err != nil {
+				err = msgp.WrapError(err, "AGI")
+				return
+			}
+		case "INT":
+			z.INT, err = dc.ReadInt()
+			if err != nil {
+				err = msgp.WrapError(err, "INT")
+				return
+			}
+		default:
+			err = dc.Skip()
+			if err != nil {
+				err = msgp.WrapError(err)
+				return
+			}
+		}
+	}
+	return
+}
+
+// EncodeMsg implements msgp.Encodable
+func (z *DBCharacter) EncodeMsg(en *msgp.Writer) (err error) {
+	// map header, size 15
+	// write "Owner"
+	// map header, size 3
+	// write "Username"
+	err = en.Append(0x8f, 0xa5, 0x4f, 0x77, 0x6e, 0x65, 0x72, 0x83, 0xa8, 0x55, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65)
+	if err != nil {
+		return
+	}
+	err = en.WriteString(z.Owner.Username)
+	if err != nil {
+		err = msgp.WrapError(err, "Owner", "Username")
+		return
+	}
+	// write "Password"
+	err = en.Append(0xa8, 0x50, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64)
+	if err != nil {
+		return
+	}
+	err = en.WriteString(z.Owner.Password)
+	if err != nil {
+		err = msgp.WrapError(err, "Owner", "Password")
+		return
+	}
+	// write "inventory"
+	err = en.Append(0xa9, 0x69, 0x6e, 0x76, 0x65, 0x6e, 0x74, 0x6f, 0x72, 0x79)
+	if err != nil {
+		return
+	}
+	err = z.Owner.Inventory.EncodeMsg(en)
+	if err != nil {
+		err = msgp.WrapError(err, "Owner", "Inventory")
+		return
+	}
+	// write "PX"
+	err = en.Append(0xa2, 0x50, 0x58)
+	if err != nil {
+		return
+	}
+	err = en.WriteInt(z.PX)
+	if err != nil {
+		err = msgp.WrapError(err, "PX")
+		return
+	}
+	// write "PY"
+	err = en.Append(0xa2, 0x50, 0x59)
+	if err != nil {
+		return
+	}
+	err = en.WriteInt(z.PY)
+	if err != nil {
+		err = msgp.WrapError(err, "PY")
+		return
+	}
+	// write "PZ"
+	err = en.Append(0xa2, 0x50, 0x5a)
+	if err != nil {
+		return
+	}
+	err = en.WriteInt(z.PZ)
+	if err != nil {
+		err = msgp.WrapError(err, "PZ")
+		return
+	}
+	// write "RX"
+	err = en.Append(0xa2, 0x52, 0x58)
+	if err != nil {
+		return
+	}
+	err = en.WriteInt(z.RX)
+	if err != nil {
+		err = msgp.WrapError(err, "RX")
+		return
+	}
+	// write "RZ"
+	err = en.Append(0xa2, 0x52, 0x5a)
+	if err != nil {
+		return
+	}
+	err = en.WriteInt(z.RZ)
+	if err != nil {
+		err = msgp.WrapError(err, "RZ")
+		return
+	}
+	// write "name"
+	err = en.Append(0xa4, 0x6e, 0x61, 0x6d, 0x65)
+	if err != nil {
+		return
+	}
+	err = en.WriteString(z.Name)
+	if err != nil {
+		err = msgp.WrapError(err, "Name")
+		return
+	}
+	// write "class"
+	err = en.Append(0xa5, 0x63, 0x6c, 0x61, 0x73, 0x73)
+	if err != nil {
+		return
+	}
+	err = en.WriteString(z.Class)
+	if err != nil {
+		err = msgp.WrapError(err, "Class")
+		return
+	}
+	// write "HP"
+	err = en.Append(0xa2, 0x48, 0x50)
+	if err != nil {
+		return
+	}
+	err = en.WriteInt(z.HP)
+	if err != nil {
+		err = msgp.WrapError(err, "HP")
+		return
+	}
+	// write "MP"
+	err = en.Append(0xa2, 0x4d, 0x50)
+	if err != nil {
+		return
+	}
+	err = en.WriteInt(z.MP)
+	if err != nil {
+		err = msgp.WrapError(err, "MP")
+		return
+	}
+	// write "currentHP"
+	err = en.Append(0xa9, 0x63, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x74, 0x48, 0x50)
+	if err != nil {
+		return
+	}
+	err = en.WriteInt(z.CurrentHP)
+	if err != nil {
+		err = msgp.WrapError(err, "CurrentHP")
+		return
+	}
+	// write "currentMP"
+	err = en.Append(0xa9, 0x63, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x74, 0x4d, 0x50)
+	if err != nil {
+		return
+	}
+	err = en.WriteInt(z.CurrentMP)
+	if err != nil {
+		err = msgp.WrapError(err, "CurrentMP")
+		return
+	}
+	// write "STR"
+	err = en.Append(0xa3, 0x53, 0x54, 0x52)
+	if err != nil {
+		return
+	}
+	err = en.WriteInt(z.STR)
+	if err != nil {
+		err = msgp.WrapError(err, "STR")
+		return
+	}
+	// write "AGI"
+	err = en.Append(0xa3, 0x41, 0x47, 0x49)
+	if err != nil {
+		return
+	}
+	err = en.WriteInt(z.AGI)
+	if err != nil {
+		err = msgp.WrapError(err, "AGI")
+		return
+	}
+	// write "INT"
+	err = en.Append(0xa3, 0x49, 0x4e, 0x54)
+	if err != nil {
+		return
+	}
+	err = en.WriteInt(z.INT)
+	if err != nil {
+		err = msgp.WrapError(err, "INT")
+		return
+	}
+	return
+}
+
+// MarshalMsg implements msgp.Marshaler
+func (z *DBCharacter) MarshalMsg(b []byte) (o []byte, err error) {
+	o = msgp.Require(b, z.Msgsize())
+	// map header, size 15
+	// string "Owner"
+	// map header, size 3
+	// string "Username"
+	o = append(o, 0x8f, 0xa5, 0x4f, 0x77, 0x6e, 0x65, 0x72, 0x83, 0xa8, 0x55, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65)
+	o = msgp.AppendString(o, z.Owner.Username)
+	// string "Password"
+	o = append(o, 0xa8, 0x50, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64)
+	o = msgp.AppendString(o, z.Owner.Password)
+	// string "inventory"
+	o = append(o, 0xa9, 0x69, 0x6e, 0x76, 0x65, 0x6e, 0x74, 0x6f, 0x72, 0x79)
+	o, err = z.Owner.Inventory.MarshalMsg(o)
+	if err != nil {
+		err = msgp.WrapError(err, "Owner", "Inventory")
+		return
+	}
+	// string "PX"
+	o = append(o, 0xa2, 0x50, 0x58)
+	o = msgp.AppendInt(o, z.PX)
+	// string "PY"
+	o = append(o, 0xa2, 0x50, 0x59)
+	o = msgp.AppendInt(o, z.PY)
+	// string "PZ"
+	o = append(o, 0xa2, 0x50, 0x5a)
+	o = msgp.AppendInt(o, z.PZ)
+	// string "RX"
+	o = append(o, 0xa2, 0x52, 0x58)
+	o = msgp.AppendInt(o, z.RX)
+	// string "RZ"
+	o = append(o, 0xa2, 0x52, 0x5a)
+	o = msgp.AppendInt(o, z.RZ)
+	// string "name"
+	o = append(o, 0xa4, 0x6e, 0x61, 0x6d, 0x65)
+	o = msgp.AppendString(o, z.Name)
+	// string "class"
+	o = append(o, 0xa5, 0x63, 0x6c, 0x61, 0x73, 0x73)
+	o = msgp.AppendString(o, z.Class)
+	// string "HP"
+	o = append(o, 0xa2, 0x48, 0x50)
+	o = msgp.AppendInt(o, z.HP)
+	// string "MP"
+	o = append(o, 0xa2, 0x4d, 0x50)
+	o = msgp.AppendInt(o, z.MP)
+	// string "currentHP"
+	o = append(o, 0xa9, 0x63, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x74, 0x48, 0x50)
+	o = msgp.AppendInt(o, z.CurrentHP)
+	// string "currentMP"
+	o = append(o, 0xa9, 0x63, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x74, 0x4d, 0x50)
+	o = msgp.AppendInt(o, z.CurrentMP)
+	// string "STR"
+	o = append(o, 0xa3, 0x53, 0x54, 0x52)
+	o = msgp.AppendInt(o, z.STR)
+	// string "AGI"
+	o = append(o, 0xa3, 0x41, 0x47, 0x49)
+	o = msgp.AppendInt(o, z.AGI)
+	// string "INT"
+	o = append(o, 0xa3, 0x49, 0x4e, 0x54)
+	o = msgp.AppendInt(o, z.INT)
+	return
+}
+
+// UnmarshalMsg implements msgp.Unmarshaler
+func (z *DBCharacter) UnmarshalMsg(bts []byte) (o []byte, err error) {
+	var field []byte
+	_ = field
+	var zb0001 uint32
+	zb0001, bts, err = msgp.ReadMapHeaderBytes(bts)
+	if err != nil {
+		err = msgp.WrapError(err)
+		return
+	}
+	for zb0001 > 0 {
+		zb0001--
+		field, bts, err = msgp.ReadMapKeyZC(bts)
+		if err != nil {
+			err = msgp.WrapError(err)
+			return
+		}
+		switch msgp.UnsafeString(field) {
+		case "Owner":
+			var zb0002 uint32
+			zb0002, bts, err = msgp.ReadMapHeaderBytes(bts)
+			if err != nil {
+				err = msgp.WrapError(err, "Owner")
+				return
+			}
+			for zb0002 > 0 {
+				zb0002--
+				field, bts, err = msgp.ReadMapKeyZC(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "Owner")
+					return
+				}
+				switch msgp.UnsafeString(field) {
+				case "Username":
+					z.Owner.Username, bts, err = msgp.ReadStringBytes(bts)
+					if err != nil {
+						err = msgp.WrapError(err, "Owner", "Username")
+						return
+					}
+				case "Password":
+					z.Owner.Password, bts, err = msgp.ReadStringBytes(bts)
+					if err != nil {
+						err = msgp.WrapError(err, "Owner", "Password")
+						return
+					}
+				case "inventory":
+					bts, err = z.Owner.Inventory.UnmarshalMsg(bts)
+					if err != nil {
+						err = msgp.WrapError(err, "Owner", "Inventory")
+						return
+					}
+				default:
+					bts, err = msgp.Skip(bts)
+					if err != nil {
+						err = msgp.WrapError(err, "Owner")
+						return
+					}
+				}
+			}
+		case "PX":
+			z.PX, bts, err = msgp.ReadIntBytes(bts)
+			if err != nil {
+				err = msgp.WrapError(err, "PX")
+				return
+			}
+		case "PY":
+			z.PY, bts, err = msgp.ReadIntBytes(bts)
+			if err != nil {
+				err = msgp.WrapError(err, "PY")
+				return
+			}
+		case "PZ":
+			z.PZ, bts, err = msgp.ReadIntBytes(bts)
+			if err != nil {
+				err = msgp.WrapError(err, "PZ")
+				return
+			}
+		case "RX":
+			z.RX, bts, err = msgp.ReadIntBytes(bts)
+			if err != nil {
+				err = msgp.WrapError(err, "RX")
+				return
+			}
+		case "RZ":
+			z.RZ, bts, err = msgp.ReadIntBytes(bts)
+			if err != nil {
+				err = msgp.WrapError(err, "RZ")
+				return
+			}
+		case "name":
+			z.Name, bts, err = msgp.ReadStringBytes(bts)
+			if err != nil {
+				err = msgp.WrapError(err, "Name")
+				return
+			}
+		case "class":
+			z.Class, bts, err = msgp.ReadStringBytes(bts)
+			if err != nil {
+				err = msgp.WrapError(err, "Class")
+				return
+			}
+		case "HP":
+			z.HP, bts, err = msgp.ReadIntBytes(bts)
+			if err != nil {
+				err = msgp.WrapError(err, "HP")
+				return
+			}
+		case "MP":
+			z.MP, bts, err = msgp.ReadIntBytes(bts)
+			if err != nil {
+				err = msgp.WrapError(err, "MP")
+				return
+			}
+		case "currentHP":
+			z.CurrentHP, bts, err = msgp.ReadIntBytes(bts)
+			if err != nil {
+				err = msgp.WrapError(err, "CurrentHP")
+				return
+			}
+		case "currentMP":
+			z.CurrentMP, bts, err = msgp.ReadIntBytes(bts)
+			if err != nil {
+				err = msgp.WrapError(err, "CurrentMP")
+				return
+			}
+		case "STR":
+			z.STR, bts, err = msgp.ReadIntBytes(bts)
+			if err != nil {
+				err = msgp.WrapError(err, "STR")
+				return
+			}
+		case "AGI":
+			z.AGI, bts, err = msgp.ReadIntBytes(bts)
+			if err != nil {
+				err = msgp.WrapError(err, "AGI")
+				return
+			}
+		case "INT":
+			z.INT, bts, err = msgp.ReadIntBytes(bts)
+			if err != nil {
+				err = msgp.WrapError(err, "INT")
+				return
+			}
+		default:
+			bts, err = msgp.Skip(bts)
+			if err != nil {
+				err = msgp.WrapError(err)
+				return
+			}
+		}
+	}
+	o = bts
+	return
+}
+
+// Msgsize returns an upper bound estimate of the number of bytes occupied by the serialized message
+func (z *DBCharacter) Msgsize() (s int) {
+	s = 1 + 6 + 1 + 9 + msgp.StringPrefixSize + len(z.Owner.Username) + 9 + msgp.StringPrefixSize + len(z.Owner.Password) + 10 + z.Owner.Inventory.Msgsize() + 3 + msgp.IntSize + 3 + msgp.IntSize + 3 + msgp.IntSize + 3 + msgp.IntSize + 3 + msgp.IntSize + 5 + msgp.StringPrefixSize + len(z.Name) + 6 + msgp.StringPrefixSize + len(z.Class) + 3 + msgp.IntSize + 3 + msgp.IntSize + 10 + msgp.IntSize + 10 + msgp.IntSize + 4 + msgp.IntSize + 4 + msgp.IntSize + 4 + msgp.IntSize
+	return
+}
+
+// DecodeMsg implements msgp.Decodable
 func (z *DBInventory) DecodeMsg(dc *msgp.Reader) (err error) {
 	var field []byte
 	_ = field
@@ -393,563 +950,6 @@ func (z *DBItemCategory) UnmarshalMsg(bts []byte) (o []byte, err error) {
 // Msgsize returns an upper bound estimate of the number of bytes occupied by the serialized message
 func (z DBItemCategory) Msgsize() (s int) {
 	s = msgp.Uint8Size
-	return
-}
-
-// DecodeMsg implements msgp.Decodable
-func (z *DBPlayer) DecodeMsg(dc *msgp.Reader) (err error) {
-	var field []byte
-	_ = field
-	var zb0001 uint32
-	zb0001, err = dc.ReadMapHeader()
-	if err != nil {
-		err = msgp.WrapError(err)
-		return
-	}
-	for zb0001 > 0 {
-		zb0001--
-		field, err = dc.ReadMapKeyPtr()
-		if err != nil {
-			err = msgp.WrapError(err)
-			return
-		}
-		switch msgp.UnsafeString(field) {
-		case "Owner":
-			var zb0002 uint32
-			zb0002, err = dc.ReadMapHeader()
-			if err != nil {
-				err = msgp.WrapError(err, "Owner")
-				return
-			}
-			for zb0002 > 0 {
-				zb0002--
-				field, err = dc.ReadMapKeyPtr()
-				if err != nil {
-					err = msgp.WrapError(err, "Owner")
-					return
-				}
-				switch msgp.UnsafeString(field) {
-				case "Username":
-					z.Owner.Username, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "Owner", "Username")
-						return
-					}
-				case "Password":
-					z.Owner.Password, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "Owner", "Password")
-						return
-					}
-				case "inventory":
-					err = z.Owner.Inventory.DecodeMsg(dc)
-					if err != nil {
-						err = msgp.WrapError(err, "Owner", "Inventory")
-						return
-					}
-				default:
-					err = dc.Skip()
-					if err != nil {
-						err = msgp.WrapError(err, "Owner")
-						return
-					}
-				}
-			}
-		case "PX":
-			z.PX, err = dc.ReadInt()
-			if err != nil {
-				err = msgp.WrapError(err, "PX")
-				return
-			}
-		case "PY":
-			z.PY, err = dc.ReadInt()
-			if err != nil {
-				err = msgp.WrapError(err, "PY")
-				return
-			}
-		case "PZ":
-			z.PZ, err = dc.ReadInt()
-			if err != nil {
-				err = msgp.WrapError(err, "PZ")
-				return
-			}
-		case "RX":
-			z.RX, err = dc.ReadInt()
-			if err != nil {
-				err = msgp.WrapError(err, "RX")
-				return
-			}
-		case "RZ":
-			z.RZ, err = dc.ReadInt()
-			if err != nil {
-				err = msgp.WrapError(err, "RZ")
-				return
-			}
-		case "name":
-			z.Name, err = dc.ReadString()
-			if err != nil {
-				err = msgp.WrapError(err, "Name")
-				return
-			}
-		case "class":
-			z.Class, err = dc.ReadString()
-			if err != nil {
-				err = msgp.WrapError(err, "Class")
-				return
-			}
-		case "HP":
-			z.HP, err = dc.ReadInt()
-			if err != nil {
-				err = msgp.WrapError(err, "HP")
-				return
-			}
-		case "MP":
-			z.MP, err = dc.ReadInt()
-			if err != nil {
-				err = msgp.WrapError(err, "MP")
-				return
-			}
-		case "currentHP":
-			z.CurrentHP, err = dc.ReadInt()
-			if err != nil {
-				err = msgp.WrapError(err, "CurrentHP")
-				return
-			}
-		case "currentMP":
-			z.CurrentMP, err = dc.ReadInt()
-			if err != nil {
-				err = msgp.WrapError(err, "CurrentMP")
-				return
-			}
-		case "STR":
-			z.STR, err = dc.ReadInt()
-			if err != nil {
-				err = msgp.WrapError(err, "STR")
-				return
-			}
-		case "AGI":
-			z.AGI, err = dc.ReadInt()
-			if err != nil {
-				err = msgp.WrapError(err, "AGI")
-				return
-			}
-		case "INT":
-			z.INT, err = dc.ReadInt()
-			if err != nil {
-				err = msgp.WrapError(err, "INT")
-				return
-			}
-		default:
-			err = dc.Skip()
-			if err != nil {
-				err = msgp.WrapError(err)
-				return
-			}
-		}
-	}
-	return
-}
-
-// EncodeMsg implements msgp.Encodable
-func (z *DBPlayer) EncodeMsg(en *msgp.Writer) (err error) {
-	// map header, size 15
-	// write "Owner"
-	// map header, size 3
-	// write "Username"
-	err = en.Append(0x8f, 0xa5, 0x4f, 0x77, 0x6e, 0x65, 0x72, 0x83, 0xa8, 0x55, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65)
-	if err != nil {
-		return
-	}
-	err = en.WriteString(z.Owner.Username)
-	if err != nil {
-		err = msgp.WrapError(err, "Owner", "Username")
-		return
-	}
-	// write "Password"
-	err = en.Append(0xa8, 0x50, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64)
-	if err != nil {
-		return
-	}
-	err = en.WriteString(z.Owner.Password)
-	if err != nil {
-		err = msgp.WrapError(err, "Owner", "Password")
-		return
-	}
-	// write "inventory"
-	err = en.Append(0xa9, 0x69, 0x6e, 0x76, 0x65, 0x6e, 0x74, 0x6f, 0x72, 0x79)
-	if err != nil {
-		return
-	}
-	err = z.Owner.Inventory.EncodeMsg(en)
-	if err != nil {
-		err = msgp.WrapError(err, "Owner", "Inventory")
-		return
-	}
-	// write "PX"
-	err = en.Append(0xa2, 0x50, 0x58)
-	if err != nil {
-		return
-	}
-	err = en.WriteInt(z.PX)
-	if err != nil {
-		err = msgp.WrapError(err, "PX")
-		return
-	}
-	// write "PY"
-	err = en.Append(0xa2, 0x50, 0x59)
-	if err != nil {
-		return
-	}
-	err = en.WriteInt(z.PY)
-	if err != nil {
-		err = msgp.WrapError(err, "PY")
-		return
-	}
-	// write "PZ"
-	err = en.Append(0xa2, 0x50, 0x5a)
-	if err != nil {
-		return
-	}
-	err = en.WriteInt(z.PZ)
-	if err != nil {
-		err = msgp.WrapError(err, "PZ")
-		return
-	}
-	// write "RX"
-	err = en.Append(0xa2, 0x52, 0x58)
-	if err != nil {
-		return
-	}
-	err = en.WriteInt(z.RX)
-	if err != nil {
-		err = msgp.WrapError(err, "RX")
-		return
-	}
-	// write "RZ"
-	err = en.Append(0xa2, 0x52, 0x5a)
-	if err != nil {
-		return
-	}
-	err = en.WriteInt(z.RZ)
-	if err != nil {
-		err = msgp.WrapError(err, "RZ")
-		return
-	}
-	// write "name"
-	err = en.Append(0xa4, 0x6e, 0x61, 0x6d, 0x65)
-	if err != nil {
-		return
-	}
-	err = en.WriteString(z.Name)
-	if err != nil {
-		err = msgp.WrapError(err, "Name")
-		return
-	}
-	// write "class"
-	err = en.Append(0xa5, 0x63, 0x6c, 0x61, 0x73, 0x73)
-	if err != nil {
-		return
-	}
-	err = en.WriteString(z.Class)
-	if err != nil {
-		err = msgp.WrapError(err, "Class")
-		return
-	}
-	// write "HP"
-	err = en.Append(0xa2, 0x48, 0x50)
-	if err != nil {
-		return
-	}
-	err = en.WriteInt(z.HP)
-	if err != nil {
-		err = msgp.WrapError(err, "HP")
-		return
-	}
-	// write "MP"
-	err = en.Append(0xa2, 0x4d, 0x50)
-	if err != nil {
-		return
-	}
-	err = en.WriteInt(z.MP)
-	if err != nil {
-		err = msgp.WrapError(err, "MP")
-		return
-	}
-	// write "currentHP"
-	err = en.Append(0xa9, 0x63, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x74, 0x48, 0x50)
-	if err != nil {
-		return
-	}
-	err = en.WriteInt(z.CurrentHP)
-	if err != nil {
-		err = msgp.WrapError(err, "CurrentHP")
-		return
-	}
-	// write "currentMP"
-	err = en.Append(0xa9, 0x63, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x74, 0x4d, 0x50)
-	if err != nil {
-		return
-	}
-	err = en.WriteInt(z.CurrentMP)
-	if err != nil {
-		err = msgp.WrapError(err, "CurrentMP")
-		return
-	}
-	// write "STR"
-	err = en.Append(0xa3, 0x53, 0x54, 0x52)
-	if err != nil {
-		return
-	}
-	err = en.WriteInt(z.STR)
-	if err != nil {
-		err = msgp.WrapError(err, "STR")
-		return
-	}
-	// write "AGI"
-	err = en.Append(0xa3, 0x41, 0x47, 0x49)
-	if err != nil {
-		return
-	}
-	err = en.WriteInt(z.AGI)
-	if err != nil {
-		err = msgp.WrapError(err, "AGI")
-		return
-	}
-	// write "INT"
-	err = en.Append(0xa3, 0x49, 0x4e, 0x54)
-	if err != nil {
-		return
-	}
-	err = en.WriteInt(z.INT)
-	if err != nil {
-		err = msgp.WrapError(err, "INT")
-		return
-	}
-	return
-}
-
-// MarshalMsg implements msgp.Marshaler
-func (z *DBPlayer) MarshalMsg(b []byte) (o []byte, err error) {
-	o = msgp.Require(b, z.Msgsize())
-	// map header, size 15
-	// string "Owner"
-	// map header, size 3
-	// string "Username"
-	o = append(o, 0x8f, 0xa5, 0x4f, 0x77, 0x6e, 0x65, 0x72, 0x83, 0xa8, 0x55, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65)
-	o = msgp.AppendString(o, z.Owner.Username)
-	// string "Password"
-	o = append(o, 0xa8, 0x50, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64)
-	o = msgp.AppendString(o, z.Owner.Password)
-	// string "inventory"
-	o = append(o, 0xa9, 0x69, 0x6e, 0x76, 0x65, 0x6e, 0x74, 0x6f, 0x72, 0x79)
-	o, err = z.Owner.Inventory.MarshalMsg(o)
-	if err != nil {
-		err = msgp.WrapError(err, "Owner", "Inventory")
-		return
-	}
-	// string "PX"
-	o = append(o, 0xa2, 0x50, 0x58)
-	o = msgp.AppendInt(o, z.PX)
-	// string "PY"
-	o = append(o, 0xa2, 0x50, 0x59)
-	o = msgp.AppendInt(o, z.PY)
-	// string "PZ"
-	o = append(o, 0xa2, 0x50, 0x5a)
-	o = msgp.AppendInt(o, z.PZ)
-	// string "RX"
-	o = append(o, 0xa2, 0x52, 0x58)
-	o = msgp.AppendInt(o, z.RX)
-	// string "RZ"
-	o = append(o, 0xa2, 0x52, 0x5a)
-	o = msgp.AppendInt(o, z.RZ)
-	// string "name"
-	o = append(o, 0xa4, 0x6e, 0x61, 0x6d, 0x65)
-	o = msgp.AppendString(o, z.Name)
-	// string "class"
-	o = append(o, 0xa5, 0x63, 0x6c, 0x61, 0x73, 0x73)
-	o = msgp.AppendString(o, z.Class)
-	// string "HP"
-	o = append(o, 0xa2, 0x48, 0x50)
-	o = msgp.AppendInt(o, z.HP)
-	// string "MP"
-	o = append(o, 0xa2, 0x4d, 0x50)
-	o = msgp.AppendInt(o, z.MP)
-	// string "currentHP"
-	o = append(o, 0xa9, 0x63, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x74, 0x48, 0x50)
-	o = msgp.AppendInt(o, z.CurrentHP)
-	// string "currentMP"
-	o = append(o, 0xa9, 0x63, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x74, 0x4d, 0x50)
-	o = msgp.AppendInt(o, z.CurrentMP)
-	// string "STR"
-	o = append(o, 0xa3, 0x53, 0x54, 0x52)
-	o = msgp.AppendInt(o, z.STR)
-	// string "AGI"
-	o = append(o, 0xa3, 0x41, 0x47, 0x49)
-	o = msgp.AppendInt(o, z.AGI)
-	// string "INT"
-	o = append(o, 0xa3, 0x49, 0x4e, 0x54)
-	o = msgp.AppendInt(o, z.INT)
-	return
-}
-
-// UnmarshalMsg implements msgp.Unmarshaler
-func (z *DBPlayer) UnmarshalMsg(bts []byte) (o []byte, err error) {
-	var field []byte
-	_ = field
-	var zb0001 uint32
-	zb0001, bts, err = msgp.ReadMapHeaderBytes(bts)
-	if err != nil {
-		err = msgp.WrapError(err)
-		return
-	}
-	for zb0001 > 0 {
-		zb0001--
-		field, bts, err = msgp.ReadMapKeyZC(bts)
-		if err != nil {
-			err = msgp.WrapError(err)
-			return
-		}
-		switch msgp.UnsafeString(field) {
-		case "Owner":
-			var zb0002 uint32
-			zb0002, bts, err = msgp.ReadMapHeaderBytes(bts)
-			if err != nil {
-				err = msgp.WrapError(err, "Owner")
-				return
-			}
-			for zb0002 > 0 {
-				zb0002--
-				field, bts, err = msgp.ReadMapKeyZC(bts)
-				if err != nil {
-					err = msgp.WrapError(err, "Owner")
-					return
-				}
-				switch msgp.UnsafeString(field) {
-				case "Username":
-					z.Owner.Username, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "Owner", "Username")
-						return
-					}
-				case "Password":
-					z.Owner.Password, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "Owner", "Password")
-						return
-					}
-				case "inventory":
-					bts, err = z.Owner.Inventory.UnmarshalMsg(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "Owner", "Inventory")
-						return
-					}
-				default:
-					bts, err = msgp.Skip(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "Owner")
-						return
-					}
-				}
-			}
-		case "PX":
-			z.PX, bts, err = msgp.ReadIntBytes(bts)
-			if err != nil {
-				err = msgp.WrapError(err, "PX")
-				return
-			}
-		case "PY":
-			z.PY, bts, err = msgp.ReadIntBytes(bts)
-			if err != nil {
-				err = msgp.WrapError(err, "PY")
-				return
-			}
-		case "PZ":
-			z.PZ, bts, err = msgp.ReadIntBytes(bts)
-			if err != nil {
-				err = msgp.WrapError(err, "PZ")
-				return
-			}
-		case "RX":
-			z.RX, bts, err = msgp.ReadIntBytes(bts)
-			if err != nil {
-				err = msgp.WrapError(err, "RX")
-				return
-			}
-		case "RZ":
-			z.RZ, bts, err = msgp.ReadIntBytes(bts)
-			if err != nil {
-				err = msgp.WrapError(err, "RZ")
-				return
-			}
-		case "name":
-			z.Name, bts, err = msgp.ReadStringBytes(bts)
-			if err != nil {
-				err = msgp.WrapError(err, "Name")
-				return
-			}
-		case "class":
-			z.Class, bts, err = msgp.ReadStringBytes(bts)
-			if err != nil {
-				err = msgp.WrapError(err, "Class")
-				return
-			}
-		case "HP":
-			z.HP, bts, err = msgp.ReadIntBytes(bts)
-			if err != nil {
-				err = msgp.WrapError(err, "HP")
-				return
-			}
-		case "MP":
-			z.MP, bts, err = msgp.ReadIntBytes(bts)
-			if err != nil {
-				err = msgp.WrapError(err, "MP")
-				return
-			}
-		case "currentHP":
-			z.CurrentHP, bts, err = msgp.ReadIntBytes(bts)
-			if err != nil {
-				err = msgp.WrapError(err, "CurrentHP")
-				return
-			}
-		case "currentMP":
-			z.CurrentMP, bts, err = msgp.ReadIntBytes(bts)
-			if err != nil {
-				err = msgp.WrapError(err, "CurrentMP")
-				return
-			}
-		case "STR":
-			z.STR, bts, err = msgp.ReadIntBytes(bts)
-			if err != nil {
-				err = msgp.WrapError(err, "STR")
-				return
-			}
-		case "AGI":
-			z.AGI, bts, err = msgp.ReadIntBytes(bts)
-			if err != nil {
-				err = msgp.WrapError(err, "AGI")
-				return
-			}
-		case "INT":
-			z.INT, bts, err = msgp.ReadIntBytes(bts)
-			if err != nil {
-				err = msgp.WrapError(err, "INT")
-				return
-			}
-		default:
-			bts, err = msgp.Skip(bts)
-			if err != nil {
-				err = msgp.WrapError(err)
-				return
-			}
-		}
-	}
-	o = bts
-	return
-}
-
-// Msgsize returns an upper bound estimate of the number of bytes occupied by the serialized message
-func (z *DBPlayer) Msgsize() (s int) {
-	s = 1 + 6 + 1 + 9 + msgp.StringPrefixSize + len(z.Owner.Username) + 9 + msgp.StringPrefixSize + len(z.Owner.Password) + 10 + z.Owner.Inventory.Msgsize() + 3 + msgp.IntSize + 3 + msgp.IntSize + 3 + msgp.IntSize + 3 + msgp.IntSize + 3 + msgp.IntSize + 5 + msgp.StringPrefixSize + len(z.Name) + 6 + msgp.StringPrefixSize + len(z.Class) + 3 + msgp.IntSize + 3 + msgp.IntSize + 10 + msgp.IntSize + 10 + msgp.IntSize + 4 + msgp.IntSize + 4 + msgp.IntSize + 4 + msgp.IntSize
 	return
 }
 

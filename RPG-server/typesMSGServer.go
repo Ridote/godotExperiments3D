@@ -21,18 +21,18 @@ type MSAuth struct {
 	Msg     string `msg:"msg"`
 }
 
-type MSNewPlayer struct {
+type MSNewCharacter struct {
 	ID      int
 	Name    string `msg:"name"`
 	Model3D int    `msg:"model3D"`
 	Owner   bool   `msg:"owner"`
 }
 
-type MSPlayerStats struct {
+type MSCharacterStats struct {
 	ID, STR, AGI, INT int
 }
 
-type MSPlayerState struct {
+type MSCharacterState struct {
 	ID, HP, MP int
 }
 

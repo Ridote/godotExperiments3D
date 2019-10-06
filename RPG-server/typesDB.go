@@ -36,8 +36,7 @@ type DBInventory struct {
 	Items      []DBItem
 }
 
-// Player is an unique Player controled by an User
-type DBPlayer struct {
+type DBCharacter struct {
 	gorm.Model         `msg:"-"`
 	Owner              DBUser
 	PX, PY, PZ, RX, RZ int

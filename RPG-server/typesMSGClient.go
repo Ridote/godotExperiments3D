@@ -17,7 +17,7 @@ type MCRegister struct {
 	Email    string `msg:"email"`
 }
 
-type MCNewPlayer struct {
+type MCNewCharacter struct {
 	Name string `msg:"name"`
 }
 

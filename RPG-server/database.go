@@ -9,7 +9,7 @@ func setupDB() *gorm.DB {
 	}
 
 	db.AutoMigrate(&DBUser{})
-	db.AutoMigrate(&DBPlayer{})
+	db.AutoMigrate(&DBCharacter{})
 	db.AutoMigrate(&DBItem{})
 
 	return db

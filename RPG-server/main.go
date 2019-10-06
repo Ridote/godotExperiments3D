@@ -102,15 +102,15 @@ func msgHandler(msg []byte, u *DBUser, c *websocket.Conn) {
 	kind := getMsgKind(msg)
 	switch kind {
 	case "newCharacter":
-		m := decodeMsg(msg).(MCNewPlayer)
-		var p DBPlayer
+		m := decodeMsg(msg).(MCNewCharacter)
+		var p DBCharacter
 		p.Name = m.Name
 		p.Owner = *u
 		p.HP = 100
 		p.CurrentHP = 100
 		db.Create(&p)
 	case "getCharacters":
-		var players []DBPlayer
+		var players []DBCharacter
 		db.Find(&players).Related(u)
 		for _, p := range players {
 			c.WriteMessage(websocket.BinaryMessage, encodeMsg("newCharacter", p))

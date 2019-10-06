@@ -12,14 +12,14 @@ func encodeMsg(kind string, payload interface{}) []byte {
 	case "auth":
 		r := payload.(MSAuth)
 		p, _ = r.MarshalMsg(nil)
-	case "newPlayer":
-		r := payload.(MSNewPlayer)
+	case "newCharacter":
+		r := payload.(MSNewCharacter)
 		p, _ = r.MarshalMsg(nil)
-	case "playerStats":
-		r := payload.(MSPlayerStats)
+	case "characterStats":
+		r := payload.(MSCharacterStats)
 		p, _ = r.MarshalMsg(nil)
-	case "playerState":
-		r := payload.(MSPlayerState)
+	case "characterState":
+		r := payload.(MSCharacterState)
 		p, _ = r.MarshalMsg(nil)
 	case "pos":
 		r := payload.(MSPos)
@@ -87,11 +87,11 @@ func decodeMsg(m []byte) interface{} {
 			fmt.Println("case register unmarshall Error:", err)
 		}
 		return r
-	case "newPlayer":
-		var r MCNewPlayer
+	case "newCharacter":
+		var r MCNewCharacter
 		_, err := r.UnmarshalMsg([]byte(aux))
 		if err != nil {
-			fmt.Println("case newplayer unmarshall Error:", err)
+			fmt.Println("case newcharacter unmarshall Error:", err)
 		}
 		return r
 	case "pos":

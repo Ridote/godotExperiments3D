@@ -772,7 +772,7 @@ func (z MCLogin) Msgsize() (s int) {
 }
 
 // DecodeMsg implements msgp.Decodable
-func (z *MCNewPlayer) DecodeMsg(dc *msgp.Reader) (err error) {
+func (z *MCNewCharacter) DecodeMsg(dc *msgp.Reader) (err error) {
 	var field []byte
 	_ = field
 	var zb0001 uint32
@@ -807,7 +807,7 @@ func (z *MCNewPlayer) DecodeMsg(dc *msgp.Reader) (err error) {
 }
 
 // EncodeMsg implements msgp.Encodable
-func (z MCNewPlayer) EncodeMsg(en *msgp.Writer) (err error) {
+func (z MCNewCharacter) EncodeMsg(en *msgp.Writer) (err error) {
 	// map header, size 1
 	// write "name"
 	err = en.Append(0x81, 0xa4, 0x6e, 0x61, 0x6d, 0x65)
@@ -823,7 +823,7 @@ func (z MCNewPlayer) EncodeMsg(en *msgp.Writer) (err error) {
 }
 
 // MarshalMsg implements msgp.Marshaler
-func (z MCNewPlayer) MarshalMsg(b []byte) (o []byte, err error) {
+func (z MCNewCharacter) MarshalMsg(b []byte) (o []byte, err error) {
 	o = msgp.Require(b, z.Msgsize())
 	// map header, size 1
 	// string "name"
@@ -833,7 +833,7 @@ func (z MCNewPlayer) MarshalMsg(b []byte) (o []byte, err error) {
 }
 
 // UnmarshalMsg implements msgp.Unmarshaler
-func (z *MCNewPlayer) UnmarshalMsg(bts []byte) (o []byte, err error) {
+func (z *MCNewCharacter) UnmarshalMsg(bts []byte) (o []byte, err error) {
 	var field []byte
 	_ = field
 	var zb0001 uint32
@@ -869,7 +869,7 @@ func (z *MCNewPlayer) UnmarshalMsg(bts []byte) (o []byte, err error) {
 }
 
 // Msgsize returns an upper bound estimate of the number of bytes occupied by the serialized message
-func (z MCNewPlayer) Msgsize() (s int) {
+func (z MCNewCharacter) Msgsize() (s int) {
 	s = 1 + 5 + msgp.StringPrefixSize + len(z.Name)
 	return
 }
