@@ -10,72 +10,74 @@ type MSG struct {
 	Payload msgp.Raw `msg:"payload"`
 }
 
+//go:generate msgp
+
 // - - - -
 // SERVER
 // - - - -
 
-type msAuth struct {
+type MSAuth struct {
 	Success bool   `msg:"success"`
 	Msg     string `msg:"msg"`
 }
 
-type msNewPlayer struct {
+type MSNewPlayer struct {
 	ID      int
 	Name    string `msg:"name"`
 	Model3D int    `msg:"model3D"`
 	Owner   bool   `msg:"owner"`
 }
 
-type msPlayerStats struct {
+type MSPlayerStats struct {
 	ID, STR, AGI, INT int
 }
 
-type msPlayerState struct {
+type MSPlayerState struct {
 	ID, HP, MP int
 }
 
-type msPos struct {
+type MSPos struct {
 	ID, PX, PY, PZ, RX, RZ int
 }
 
-type msInventory struct {
+type MSInventory struct {
 	ID    int
-	Items []dbItem `msg:"items"`
+	Items []DBItem `msg:"items"`
 }
 
-type msItem struct {
+type MSItem struct {
 	ID     int
 	ItemID int `msg:"itemID"`
 }
 
-type msUseItem struct {
-	msItem
+type MSUseItem struct {
+	MSItem
 }
 
-type msNewItem struct {
-	msItem
+type MSNewItem struct {
+	MSItem
 }
 
-type msDeleteItem struct {
-	msItem
+type MSDeleteItem struct {
+	MSItem
 }
 
-type msEquipItem struct {
-	msItem
+type MSEquipItem struct {
+	MSItem
 }
 
-type msUnequipItem struct {
-	msItem
+type MSUnequipItem struct {
+	MSItem
 }
 
-type msQuestion struct {
+type MSQuestion struct {
 	ID       int
 	TargetID int
 	Text     string
 	Options  []string
 }
 
-type msTalk struct {
+type MSTalk struct {
 	ID       int
 	TargetID int
 	Text     string

@@ -27,7 +27,7 @@ func handle(w http.ResponseWriter, r *http.Request) {
 	}
 	defer c.Close()
 
-	var u User
+	var u DBUser
 
 	for {
 		mt, message, err := c.ReadMessage()
@@ -40,29 +40,55 @@ func handle(w http.ResponseWriter, r *http.Request) {
 		if mt == websocket.BinaryMessage {
 			if u.Username != "" {
 				fmt.Println("User exists, handleMsg")
-				msgHandler(message)
+				msgHandler(message, &u, c)
 			} else {
-				// read
-				l, ok := decodeMsg(message).(mcLogin)
+				// LOGIN or REGISTER
+				l, ok := decodeMsg(message).(MCLogin)
 				if !ok {
-					fmt.Println("invalid msg sent, when not authenticated you can only send 'login' command")
-					c.WriteMessage(mt, encodeMsg("auth", msAuth{
-						Msg:     "invalid msg sent, when not authenticated you can only send 'login' command",
-						Success: false,
+					// REGISTER
+					reg, ok := decodeMsg(message).(MCRegister)
+					if !ok {
+						fmt.Println("invalid msg sent, when not authenticated you can only send 'login' command")
+						c.WriteMessage(websocket.BinaryMessage, encodeMsg("auth", MSAuth{
+							Msg:     "invalid msg sent, when not authenticated you can only send 'login' command",
+							Success: false,
+						}))
+						continue
+					}
+					db.Where("username = ?", reg.Username).First(&u)
+					if u.Username != "" {
+						fmt.Println("user already exists", u.Username)
+						c.WriteMessage(websocket.BinaryMessage, encodeMsg("auth", MSAuth{
+							Msg:     "user already exists " + u.Username,
+							Success: false,
+						}))
+						continue
+					}
+					u.Username = reg.Username
+					u.Password = reg.Password
+
+					db.Create(&u)
+
+					fmt.Println("user created", u.Username)
+					c.WriteMessage(websocket.BinaryMessage, encodeMsg("auth", MSAuth{
+						Msg:     "user created " + u.Username,
+						Success: true,
 					}))
-					break
+					continue
 				}
-				if l.Username == "Rido" {
-					u.Username = l.Username
-					c.WriteMessage(mt, encodeMsg("auth", msAuth{
+				// LOGIN
+				db.Where("username = ?", l.Username).First(&u)
+				if l.Password == u.Password {
+					c.WriteMessage(websocket.BinaryMessage, encodeMsg("auth", MSAuth{
 						Msg:     "authentication succesful!",
 						Success: true,
 					}))
 				} else {
-					c.WriteMessage(mt, encodeMsg("auth", msAuth{
+					c.WriteMessage(websocket.BinaryMessage, encodeMsg("auth", MSAuth{
 						Msg:     "invalid user!",
 						Success: false,
 					}))
+					u.Username = ""
 				}
 			}
 		} else {
@@ -72,6 +98,22 @@ func handle(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func msgHandler(msg []byte) {
-
+func msgHandler(msg []byte, u *DBUser, c *websocket.Conn) {
+	kind := getMsgKind(msg)
+	switch kind {
+	case "newCharacter":
+		m := decodeMsg(msg).(MCNewPlayer)
+		var p DBPlayer
+		p.Name = m.Name
+		p.Owner = *u
+		p.HP = 100
+		p.CurrentHP = 100
+		db.Create(&p)
+	case "getCharacters":
+		var players []DBPlayer
+		db.Find(&players).Related(u)
+		for _, p := range players {
+			c.WriteMessage(websocket.BinaryMessage, encodeMsg("newCharacter", p))
+		}
+	}
 }

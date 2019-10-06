@@ -4,52 +4,54 @@ package main
 // CLIENT
 // - - - -
 
-type mcLogin struct {
+//go:generate msgp
+
+type MCLogin struct {
 	Username string `msg:"username"`
 	Password string `msg:"password"`
 }
 
-type mcRegister struct {
+type MCRegister struct {
 	Username string `msg:"username"`
 	Password string `msg:"password"`
 	Email    string `msg:"email"`
 }
 
-type mcNewPlayer struct {
+type MCNewPlayer struct {
 	Name string `msg:"name"`
 }
 
-type mcPos struct {
+type MCPos struct {
 	ID, PX, PY, PZ, RX, RY int
 }
 
-type mcItem struct {
+type MCItem struct {
 	ID     int
 	ItemID int `msg:"itemID"`
 }
 
-type mcEquipItem struct {
-	mcItem
+type MCEquipItem struct {
+	MCItem
 }
 
-type mcUnequipItem struct {
-	mcItem
+type MCUnequipItem struct {
+	MCItem
 }
 
-type mcUseItem struct {
-	mcItem
+type MCUseItem struct {
+	MCItem
 }
 
-type mcDeleteItem struct {
-	mcItem
+type MCDeleteItem struct {
+	MCItem
 }
 
-type mcTalk struct {
+type MCTalk struct {
 	ID       int
 	TargetID int `msg:"targetID"`
 }
 
-type mcAnswer struct {
+type MCAnswer struct {
 	ID       int
 	TargetID int `msg:"targetID"`
 	Option   int `msg:"option"`

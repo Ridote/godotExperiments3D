@@ -7,9 +7,10 @@ func setupDB() *gorm.DB {
 	if err != nil {
 		panic("failed to connect database")
 	}
-	defer db.Close()
 
-	db.AutoMigrate(&MSG{})
+	db.AutoMigrate(&DBUser{})
+	db.AutoMigrate(&DBPlayer{})
+	db.AutoMigrate(&DBItem{})
 
 	return db
 }
