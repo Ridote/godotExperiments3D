@@ -9,24 +9,21 @@ import (
 //msgp:ignore User
 
 // User is an user
-type User struct {
+type dbUser struct {
 	gorm.Model
 	Username string
+	Password string // hashed
 	ws       *websocket.Conn
 }
 
 // ItemCategory represents the type of item (equipable, usable, etc)
-type ItemCategory int
+type ItemCategory uint8
 
 const (
-	// Consumable an item that can be consumed
-	Consumable ItemCategory = iota
-	// Equipable an item that can be equiped
-	Equipable
-	// Quest an item used in quests
-	Quest
-	// Miscellaneous the rest
-	Miscellaneous
+	itemConsumable ItemCategory = iota
+	itemEquipable
+	itemQuest
+	itemMiscellaneous
 )
 
 type dbItem struct {
@@ -42,15 +39,17 @@ type dbInventory struct {
 // Player is an unique Player controled by an User
 type dbPlayer struct {
 	gorm.Model
-	ID        int         `msg:"ID"`
-	Name      string      `msg:"name"`
-	Class     string      `msg:"class"`
-	HP        int         `msg:"HP"`
-	MP        int         `msg:"MP"`
-	CurrentHP int         `msg:"currentHP"`
-	CurrentMP int         `msg:"currentMP"`
-	STR       int         `msg:"STR"`
-	AGI       int         `msg:"AGI"`
-	INT       int         `msg:"INT"`
-	Inventory dbInventory `msg:"inventory"`
+	ID                 int
+	Owner              dbUser
+	PX, PY, PZ, RX, RZ int
+	Name               string      `msg:"name"`
+	Class              string      `msg:"class"`
+	HP                 int         `msg:"HP"`
+	MP                 int         `msg:"MP"`
+	CurrentHP          int         `msg:"currentHP"`
+	CurrentMP          int         `msg:"currentMP"`
+	STR                int         `msg:"STR"`
+	AGI                int         `msg:"AGI"`
+	INT                int         `msg:"INT"`
+	Inventory          dbInventory `msg:"inventory"`
 }
