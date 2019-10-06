@@ -1,6 +1,6 @@
 # warning-ignore-all:unused_class_variable
 extends Node
-
+# TODO REMOVE ME
 var STATS_FACTORY = preload("res://Scenes/Stats.tscn")
 
 var players = []

@@ -3,6 +3,9 @@
 [sub_resource type="GDScript" id=1]
 script/source = "extends PanelContainer
 
+signal error(msg)
+signal success(msg)
+
 onready var sendButton = $VBoxContainer/Send
 onready var username = $VBoxContainer/HBoxContainer/VBoxContainer2/usernameEdit
 onready var password = $VBoxContainer/HBoxContainer/VBoxContainer2/passwordEdit
@@ -13,9 +16,11 @@ func _ready():
 func sendLogin():
 	Network.clientRequest.login(username.text, password.text)
 
-func on_authentication(success):
-	print(success)
-	"
+func on_authentication(success, state):
+	if(!success):
+		emit_signal(\"error\", state)
+	else:
+		emit_signal(\"success\", state)"
 
 [node name="Login" type="PanelContainer"]
 anchor_right = 1.0

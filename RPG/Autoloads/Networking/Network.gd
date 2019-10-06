@@ -11,6 +11,7 @@ func _enter_tree():
 	# We really want to do this before all the manbo jumbo because we want to connect signals from other nodes
 	serverResponse = SERVER_RESPONSE_FACTORY.new()
 	clientRequest = CLIENT_REQUEST_FACTORY.new()
+	add_child(serverResponse)
 	
 func _ready():
 	ws = WebSocketClient.new()
@@ -18,9 +19,8 @@ func _ready():
 	ws.connect("connection_established", self, "_connection_established")
 	ws.connect("connection_closed", self, "_connection_closed")
 	ws.connect("connection_error", self, "_connection_error")
-	#var url = "ws://pc.galax.be:1616"
-	var url = "ws://localhost:1616"
-	# var url = "ws://echo.websocket.org"
+	var url = "ws://pc.galax.be:1616"
+	# var url = "ws://localhost:1616"
 	Logger.info("Connecting to " + url, Groups.NETWORKING)
 	ws.connect_to_url(url)
 	

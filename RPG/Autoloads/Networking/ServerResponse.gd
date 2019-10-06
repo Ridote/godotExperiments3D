@@ -7,8 +7,8 @@ const RESPONSE_TYPE = {
 	signup = "signup"
 }
 
-signal auth_success(success)
-signal signup_success(success)
+signal auth_success(success, msg)
+signal signup_success(success, msg)
 
 func processResponse(packet):
 	Logger.info("Packet received(" + packet.type + ")", Groups.NETWORKING)
@@ -22,10 +22,12 @@ func processResponse(packet):
 func auth(status, msg = ""):
 	if status:
 		Logger.info(msg, "Networking")
-		emit_signal("auth_success", true)
+		emit_signal("auth_success", true, msg)
+		# TODO load entry
+		get_tree().quit()
 	else:
 		Logger.error(msg, "Networking")
-		emit_signal("auth_success", false)
+		emit_signal("auth_success", false, msg)
 
 func signup(status, msg=""):
 	if status:

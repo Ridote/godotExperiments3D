@@ -1,13 +1,39 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://GUI/StartMenu/Login.tscn" type="PackedScene" id=1]
 [ext_resource path="res://GUI/StartMenu/Signup.tscn" type="PackedScene" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends PanelContainer
+
+onready var login = $CenterContainer/VBoxContainer/TabContainer/Login/Login
+onready var signup = $CenterContainer/VBoxContainer/TabContainer/SignUp/Signup
+onready var messageContainer =  $CenterContainer/VBoxContainer/MessageContainer
+onready var message =  $CenterContainer/VBoxContainer/MessageContainer/Message
+
+func _ready():
+	if login.connect(\"error\", self, \"_on_error\"):
+		pass
+	if login.connect(\"success\", self, \"_on_success\"):
+		pass
+	if signup.connect(\"error\", self, \"_on_error\"):
+		pass
+	if signup.connect(\"success\", self, \"_on_success\"):
+		pass
+
+func _on_error(msg):
+	messageContainer.visible = true
+	message.text = msg
+
+func _on_success(_msg):
+	messageContainer.visible = false"
 
 [node name="LogSign" type="PanelContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = SubResource( 1 )
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 margin_left = 7.0
@@ -17,16 +43,22 @@ margin_bottom = 593.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="TabContainer" type="TabContainer" parent="CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 margin_left = 249.0
-margin_top = 218.0
+margin_top = 213.0
 margin_right = 761.0
-margin_bottom = 368.0
+margin_bottom = 372.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TabContainer" type="TabContainer" parent="CenterContainer/VBoxContainer"]
+margin_right = 512.0
+margin_bottom = 150.0
 rect_min_size = Vector2( 512, 150 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Login" type="Tabs" parent="CenterContainer/TabContainer"]
+[node name="Login" type="Tabs" parent="CenterContainer/VBoxContainer/TabContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -36,9 +68,9 @@ margin_bottom = -4.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Login" parent="CenterContainer/TabContainer/Login" instance=ExtResource( 1 )]
+[node name="Login" parent="CenterContainer/VBoxContainer/TabContainer/Login" instance=ExtResource( 1 )]
 
-[node name="Sign Up" type="Tabs" parent="CenterContainer/TabContainer"]
+[node name="SignUp" type="Tabs" parent="CenterContainer/VBoxContainer/TabContainer"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -47,4 +79,24 @@ margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 
-[node name="Signup" parent="CenterContainer/TabContainer/Sign Up" instance=ExtResource( 2 )]
+[node name="Signup" parent="CenterContainer/VBoxContainer/TabContainer/SignUp" instance=ExtResource( 2 )]
+
+[node name="ColorRect" type="ColorRect" parent="CenterContainer/VBoxContainer"]
+margin_top = 154.0
+margin_right = 512.0
+margin_bottom = 159.0
+rect_min_size = Vector2( 0, 5 )
+color = Color( 1, 1, 1, 0 )
+
+[node name="MessageContainer" type="PanelContainer" parent="CenterContainer/VBoxContainer"]
+visible = false
+margin_top = 163.0
+margin_right = 512.0
+margin_bottom = 191.0
+
+[node name="Message" type="Label" parent="CenterContainer/VBoxContainer/MessageContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 505.0
+margin_bottom = 21.0
+size_flags_horizontal = 3

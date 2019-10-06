@@ -2,7 +2,7 @@ extends Node
 
 const REQUEST_TYPE = {
 	login = "login",
-	signup = "signup"
+	signup = "register"
 }
 
 var ws = null
@@ -24,5 +24,5 @@ func login(username, password):
 	sendRequest(REQUEST_TYPE.login, {username=username, password=password})
 
 func signup(username, password):
-	sendRequest(REQUEST_TYPE.login, {username=username, password=password})
+	sendRequest(REQUEST_TYPE.signup, {username=username, password=password})
 	

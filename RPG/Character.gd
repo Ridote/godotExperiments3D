@@ -1,5 +1,5 @@
 extends Spatial
-
+# TODO REMOVE ME
 const STATS_FACTORY = preload("res://Scenes/Stats.tscn")
 
 var ally : int = -1
