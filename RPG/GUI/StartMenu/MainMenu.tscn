@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends PanelContainer
+
+const LOAD_GAMES : String = \"res://GUI/StartMenu/LoadGames.tscn\"
+
+onready var start : Button = $VBoxContainer/StartNewGame
+onready var loadGame : Button = $VBoxContainer/LoadGame
+onready var exit : Button = $VBoxContainer/Exit
+
+func _ready():
+	if(start.connect(\"pressed\", self, \"_on_start\")):
+		Logger.error(\"Error when trying to connect Start Button in Main Menu\")
+	if(loadGame.connect(\"pressed\", self, \"_on_load\")):
+		Logger.error(\"Error when trying to connect Load Button in Main Menu\")
+	if(exit.connect(\"pressed\", self, \"_on_exit\")):
+		Logger.error(\"Error when trying to connect Exit Button in Main Menu\")
+
+func _on_start():
+	print(\"Start\")
+	
+func _on_load():
+	if(get_tree().change_scene(LOAD_GAMES)):
+		Logger.error(\"Error when trying transitioning to Load Games from Main Menu\")
+	
+func _on_exit():
+	get_tree().quit()"
+
+[node name="MainMenu" type="PanelContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = SubResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 457.0
+margin_top = 266.0
+margin_right = 567.0
+margin_bottom = 334.0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="StartNewGame" type="Button" parent="VBoxContainer"]
+margin_right = 110.0
+margin_bottom = 20.0
+text = "Start new game"
+
+[node name="LoadGame" type="Button" parent="VBoxContainer"]
+margin_top = 24.0
+margin_right = 110.0
+margin_bottom = 44.0
+text = "Load Game"
+
+[node name="Exit" type="Button" parent="VBoxContainer"]
+margin_top = 48.0
+margin_right = 110.0
+margin_bottom = 68.0
+text = "Exit"
