@@ -18,7 +18,7 @@ func _ready():
 		Logger.error(\"Error when trying to connect Exit Button in Main Menu\")
 
 func _on_start():
-	print(\"Start\")
+	Network.clientRequest.newGame(false)
 	
 func _on_load():
 	if(get_tree().change_scene(LOAD_GAMES)):

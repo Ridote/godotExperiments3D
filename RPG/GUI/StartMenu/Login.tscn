@@ -4,7 +4,8 @@
 script/source = "extends PanelContainer
 
 signal error(msg)
-signal success(msg)
+
+const MAIN_MENU_SCENE : String = \"res://GUI/StartMenu/MainMenu.tscn\"
 
 onready var sendButton = $VBoxContainer/Send
 onready var username = $VBoxContainer/HBoxContainer/VBoxContainer2/usernameEdit
@@ -20,7 +21,8 @@ func on_authentication(success, state):
 	if(!success):
 		emit_signal(\"error\", state)
 	else:
-		emit_signal(\"success\", state)"
+		if get_tree().change_scene(MAIN_MENU_SCENE):
+			Logger.error(\"Error changing scene from Login to Main Menu\", \"Login\")"
 
 [node name="Login" type="PanelContainer"]
 anchor_right = 1.0

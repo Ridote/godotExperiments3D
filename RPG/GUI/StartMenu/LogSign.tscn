@@ -14,8 +14,6 @@ onready var message =  $CenterContainer/VBoxContainer/MessageContainer/Message
 func _ready():
 	if login.connect(\"error\", self, \"_on_error\"):
 		pass
-	if login.connect(\"success\", self, \"_on_success\"):
-		pass
 	if signup.connect(\"error\", self, \"_on_error\"):
 		pass
 	if signup.connect(\"success\", self, \"_on_success\"):

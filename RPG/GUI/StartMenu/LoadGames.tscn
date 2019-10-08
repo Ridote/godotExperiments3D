@@ -13,12 +13,17 @@ onready var backButton : Button = $VBoxContainer/Back
 func _ready():
 	if(backButton.connect(\"pressed\", self, \"_on_back\")):
 		Logger.error(\"Error when connecting back button in Loading Games\")
+	
+	Network.serverResponse.connect(\"game_received\", self, \"_on_game_received\")
+	Network.clientRequest.loadGames()
 
 func _on_back():
 	if(get_tree().change_scene(MAIN_MENU)):
 		Logger.error(\"Error when trying to go back to Main Menu from Loading Games\")
 
-"
+# warning-ignore-all:unused_argument
+func _on_game_received(id, time, lock, users, characters):
+	pass"
 
 [node name="LoadGames" type="PanelContainer"]
 anchor_right = 1.0
@@ -41,7 +46,7 @@ size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Games"]
 margin_right = 998.0
-margin_bottom = 914.0
+margin_bottom = 722.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -50,29 +55,27 @@ margin_right = 998.0
 margin_bottom = 4.0
 
 [node name="Game1" type="HBoxContainer" parent="VBoxContainer/Games/VBoxContainer"]
-editor/display_folded = true
 margin_top = 8.0
 margin_right = 998.0
-margin_bottom = 126.0
+margin_bottom = 75.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game1"]
 editor/display_folded = true
-margin_right = 752.0
-margin_bottom = 118.0
-size_flags_horizontal = 3
+margin_right = 290.0
+margin_bottom = 67.0
+size_flags_horizontal = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.8
 
 [node name="Label" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game1/VBoxContainer"]
-margin_right = 752.0
+margin_right = 290.0
 margin_bottom = 14.0
 text = "Game Saved: 07/10/2019. Fisherman Horizon"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game1/VBoxContainer"]
 margin_top = 18.0
-margin_right = 752.0
-margin_bottom = 118.0
+margin_right = 290.0
+margin_bottom = 67.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -93,85 +96,52 @@ stretch_mode = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game1"]
 editor/display_folded = true
-margin_left = 756.0
-margin_right = 944.0
-margin_bottom = 118.0
+margin_left = 501.0
+margin_right = 998.0
+margin_bottom = 67.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.2
 
 [node name="Label" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game1/VBoxContainer2"]
-margin_right = 188.0
+margin_right = 497.0
 margin_bottom = 14.0
 text = "Some other information"
 
 [node name="Label2" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game1/VBoxContainer2"]
 margin_top = 18.0
-margin_right = 188.0
+margin_right = 497.0
 margin_bottom = 32.0
 text = "This could be any trash"
 
 [node name="Label3" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game1/VBoxContainer2"]
 margin_top = 36.0
-margin_right = 188.0
-margin_bottom = 118.0
+margin_right = 497.0
+margin_bottom = 67.0
 text = "And this is a multiline example of the trash wich won't be happening aparently but I want to makeit as long as I can to see what happens"
 autowrap = true
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/Games/VBoxContainer/Game1"]
-margin_left = 948.0
-margin_right = 952.0
-margin_bottom = 118.0
-
-[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game1"]
-editor/display_folded = true
-margin_left = 956.0
-margin_right = 998.0
-margin_bottom = 118.0
-size_flags_vertical = 3
-
-[node name="Button" type="Button" parent="VBoxContainer/Games/VBoxContainer/Game1/VBoxContainer3"]
-margin_right = 42.0
-margin_bottom = 57.0
-size_flags_vertical = 3
-text = "Start"
-
-[node name="Button2" type="Button" parent="VBoxContainer/Games/VBoxContainer/Game1/VBoxContainer3"]
-margin_top = 61.0
-margin_right = 42.0
-margin_bottom = 118.0
-size_flags_vertical = 3
-text = "Host"
-
-[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/Games/VBoxContainer"]
-margin_top = 130.0
-margin_right = 998.0
-margin_bottom = 134.0
-
 [node name="Game2" type="HBoxContainer" parent="VBoxContainer/Games/VBoxContainer"]
-editor/display_folded = true
-margin_top = 138.0
+margin_top = 79.0
 margin_right = 998.0
-margin_bottom = 256.0
+margin_bottom = 146.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game2"]
 editor/display_folded = true
-margin_right = 752.0
-margin_bottom = 118.0
-size_flags_horizontal = 3
+margin_right = 290.0
+margin_bottom = 67.0
+size_flags_horizontal = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.8
 
 [node name="Label" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game2/VBoxContainer"]
-margin_right = 752.0
+margin_right = 290.0
 margin_bottom = 14.0
 text = "Game Saved: 07/10/2019. Fisherman Horizon"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game2/VBoxContainer"]
 margin_top = 18.0
-margin_right = 752.0
-margin_bottom = 118.0
+margin_right = 290.0
+margin_bottom = 67.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -192,85 +162,52 @@ stretch_mode = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game2"]
 editor/display_folded = true
-margin_left = 756.0
-margin_right = 944.0
-margin_bottom = 118.0
+margin_left = 501.0
+margin_right = 998.0
+margin_bottom = 67.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.2
 
 [node name="Label" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game2/VBoxContainer2"]
-margin_right = 188.0
+margin_right = 497.0
 margin_bottom = 14.0
 text = "Some other information"
 
 [node name="Label2" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game2/VBoxContainer2"]
 margin_top = 18.0
-margin_right = 188.0
+margin_right = 497.0
 margin_bottom = 32.0
 text = "This could be any trash"
 
 [node name="Label3" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game2/VBoxContainer2"]
 margin_top = 36.0
-margin_right = 188.0
-margin_bottom = 118.0
+margin_right = 497.0
+margin_bottom = 67.0
 text = "And this is a multiline example of the trash wich won't be happening aparently but I want to makeit as long as I can to see what happens"
 autowrap = true
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/Games/VBoxContainer/Game2"]
-margin_left = 948.0
-margin_right = 952.0
-margin_bottom = 118.0
-
-[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game2"]
-editor/display_folded = true
-margin_left = 956.0
-margin_right = 998.0
-margin_bottom = 118.0
-size_flags_vertical = 3
-
-[node name="Button" type="Button" parent="VBoxContainer/Games/VBoxContainer/Game2/VBoxContainer3"]
-margin_right = 42.0
-margin_bottom = 57.0
-size_flags_vertical = 3
-text = "Start"
-
-[node name="Button2" type="Button" parent="VBoxContainer/Games/VBoxContainer/Game2/VBoxContainer3"]
-margin_top = 61.0
-margin_right = 42.0
-margin_bottom = 118.0
-size_flags_vertical = 3
-text = "Host"
-
-[node name="HSeparator3" type="HSeparator" parent="VBoxContainer/Games/VBoxContainer"]
-margin_top = 260.0
-margin_right = 998.0
-margin_bottom = 264.0
-
 [node name="Game3" type="HBoxContainer" parent="VBoxContainer/Games/VBoxContainer"]
-editor/display_folded = true
-margin_top = 268.0
+margin_top = 150.0
 margin_right = 998.0
-margin_bottom = 386.0
+margin_bottom = 217.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game3"]
 editor/display_folded = true
-margin_right = 752.0
-margin_bottom = 118.0
-size_flags_horizontal = 3
+margin_right = 290.0
+margin_bottom = 67.0
+size_flags_horizontal = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.8
 
 [node name="Label" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game3/VBoxContainer"]
-margin_right = 752.0
+margin_right = 290.0
 margin_bottom = 14.0
 text = "Game Saved: 07/10/2019. Fisherman Horizon"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game3/VBoxContainer"]
 margin_top = 18.0
-margin_right = 752.0
-margin_bottom = 118.0
+margin_right = 290.0
+margin_bottom = 67.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -291,85 +228,52 @@ stretch_mode = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game3"]
 editor/display_folded = true
-margin_left = 756.0
-margin_right = 944.0
-margin_bottom = 118.0
+margin_left = 501.0
+margin_right = 998.0
+margin_bottom = 67.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.2
 
 [node name="Label" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game3/VBoxContainer2"]
-margin_right = 188.0
+margin_right = 497.0
 margin_bottom = 14.0
 text = "Some other information"
 
 [node name="Label2" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game3/VBoxContainer2"]
 margin_top = 18.0
-margin_right = 188.0
+margin_right = 497.0
 margin_bottom = 32.0
 text = "This could be any trash"
 
 [node name="Label3" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game3/VBoxContainer2"]
 margin_top = 36.0
-margin_right = 188.0
-margin_bottom = 118.0
+margin_right = 497.0
+margin_bottom = 67.0
 text = "And this is a multiline example of the trash wich won't be happening aparently but I want to makeit as long as I can to see what happens"
 autowrap = true
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/Games/VBoxContainer/Game3"]
-margin_left = 948.0
-margin_right = 952.0
-margin_bottom = 118.0
-
-[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game3"]
-editor/display_folded = true
-margin_left = 956.0
-margin_right = 998.0
-margin_bottom = 118.0
-size_flags_vertical = 3
-
-[node name="Button" type="Button" parent="VBoxContainer/Games/VBoxContainer/Game3/VBoxContainer3"]
-margin_right = 42.0
-margin_bottom = 57.0
-size_flags_vertical = 3
-text = "Start"
-
-[node name="Button2" type="Button" parent="VBoxContainer/Games/VBoxContainer/Game3/VBoxContainer3"]
-margin_top = 61.0
-margin_right = 42.0
-margin_bottom = 118.0
-size_flags_vertical = 3
-text = "Host"
-
-[node name="HSeparator4" type="HSeparator" parent="VBoxContainer/Games/VBoxContainer"]
-margin_top = 390.0
-margin_right = 998.0
-margin_bottom = 394.0
-
 [node name="Game4" type="HBoxContainer" parent="VBoxContainer/Games/VBoxContainer"]
-editor/display_folded = true
-margin_top = 398.0
+margin_top = 221.0
 margin_right = 998.0
-margin_bottom = 516.0
+margin_bottom = 288.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game4"]
 editor/display_folded = true
-margin_right = 752.0
-margin_bottom = 118.0
-size_flags_horizontal = 3
+margin_right = 290.0
+margin_bottom = 67.0
+size_flags_horizontal = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.8
 
 [node name="Label" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game4/VBoxContainer"]
-margin_right = 752.0
+margin_right = 290.0
 margin_bottom = 14.0
 text = "Game Saved: 07/10/2019. Fisherman Horizon"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game4/VBoxContainer"]
 margin_top = 18.0
-margin_right = 752.0
-margin_bottom = 118.0
+margin_right = 290.0
+margin_bottom = 67.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -390,85 +294,52 @@ stretch_mode = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game4"]
 editor/display_folded = true
-margin_left = 756.0
-margin_right = 944.0
-margin_bottom = 118.0
+margin_left = 501.0
+margin_right = 998.0
+margin_bottom = 67.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.2
 
 [node name="Label" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game4/VBoxContainer2"]
-margin_right = 188.0
+margin_right = 497.0
 margin_bottom = 14.0
 text = "Some other information"
 
 [node name="Label2" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game4/VBoxContainer2"]
 margin_top = 18.0
-margin_right = 188.0
+margin_right = 497.0
 margin_bottom = 32.0
 text = "This could be any trash"
 
 [node name="Label3" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game4/VBoxContainer2"]
 margin_top = 36.0
-margin_right = 188.0
-margin_bottom = 118.0
+margin_right = 497.0
+margin_bottom = 67.0
 text = "And this is a multiline example of the trash wich won't be happening aparently but I want to makeit as long as I can to see what happens"
 autowrap = true
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/Games/VBoxContainer/Game4"]
-margin_left = 948.0
-margin_right = 952.0
-margin_bottom = 118.0
-
-[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game4"]
-editor/display_folded = true
-margin_left = 956.0
-margin_right = 998.0
-margin_bottom = 118.0
-size_flags_vertical = 3
-
-[node name="Button" type="Button" parent="VBoxContainer/Games/VBoxContainer/Game4/VBoxContainer3"]
-margin_right = 42.0
-margin_bottom = 57.0
-size_flags_vertical = 3
-text = "Start"
-
-[node name="Button2" type="Button" parent="VBoxContainer/Games/VBoxContainer/Game4/VBoxContainer3"]
-margin_top = 61.0
-margin_right = 42.0
-margin_bottom = 118.0
-size_flags_vertical = 3
-text = "Host"
-
-[node name="HSeparator6" type="HSeparator" parent="VBoxContainer/Games/VBoxContainer"]
-margin_top = 520.0
-margin_right = 998.0
-margin_bottom = 524.0
-
 [node name="Game5" type="HBoxContainer" parent="VBoxContainer/Games/VBoxContainer"]
-editor/display_folded = true
-margin_top = 528.0
+margin_top = 292.0
 margin_right = 998.0
-margin_bottom = 646.0
+margin_bottom = 359.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game5"]
 editor/display_folded = true
-margin_right = 752.0
-margin_bottom = 118.0
-size_flags_horizontal = 3
+margin_right = 290.0
+margin_bottom = 67.0
+size_flags_horizontal = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.8
 
 [node name="Label" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game5/VBoxContainer"]
-margin_right = 752.0
+margin_right = 290.0
 margin_bottom = 14.0
 text = "Game Saved: 07/10/2019. Fisherman Horizon"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game5/VBoxContainer"]
 margin_top = 18.0
-margin_right = 752.0
-margin_bottom = 118.0
+margin_right = 290.0
+margin_bottom = 67.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -489,85 +360,52 @@ stretch_mode = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game5"]
 editor/display_folded = true
-margin_left = 756.0
-margin_right = 944.0
-margin_bottom = 118.0
+margin_left = 501.0
+margin_right = 998.0
+margin_bottom = 67.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.2
 
 [node name="Label" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game5/VBoxContainer2"]
-margin_right = 188.0
+margin_right = 497.0
 margin_bottom = 14.0
 text = "Some other information"
 
 [node name="Label2" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game5/VBoxContainer2"]
 margin_top = 18.0
-margin_right = 188.0
+margin_right = 497.0
 margin_bottom = 32.0
 text = "This could be any trash"
 
 [node name="Label3" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game5/VBoxContainer2"]
 margin_top = 36.0
-margin_right = 188.0
-margin_bottom = 118.0
+margin_right = 497.0
+margin_bottom = 67.0
 text = "And this is a multiline example of the trash wich won't be happening aparently but I want to makeit as long as I can to see what happens"
 autowrap = true
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/Games/VBoxContainer/Game5"]
-margin_left = 948.0
-margin_right = 952.0
-margin_bottom = 118.0
-
-[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game5"]
-editor/display_folded = true
-margin_left = 956.0
-margin_right = 998.0
-margin_bottom = 118.0
-size_flags_vertical = 3
-
-[node name="Button" type="Button" parent="VBoxContainer/Games/VBoxContainer/Game5/VBoxContainer3"]
-margin_right = 42.0
-margin_bottom = 57.0
-size_flags_vertical = 3
-text = "Start"
-
-[node name="Button2" type="Button" parent="VBoxContainer/Games/VBoxContainer/Game5/VBoxContainer3"]
-margin_top = 61.0
-margin_right = 42.0
-margin_bottom = 118.0
-size_flags_vertical = 3
-text = "Host"
-
-[node name="HSeparator7" type="HSeparator" parent="VBoxContainer/Games/VBoxContainer"]
-margin_top = 650.0
-margin_right = 998.0
-margin_bottom = 654.0
-
 [node name="Game6" type="HBoxContainer" parent="VBoxContainer/Games/VBoxContainer"]
-editor/display_folded = true
-margin_top = 658.0
+margin_top = 363.0
 margin_right = 998.0
-margin_bottom = 776.0
+margin_bottom = 430.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game6"]
 editor/display_folded = true
-margin_right = 752.0
-margin_bottom = 118.0
-size_flags_horizontal = 3
+margin_right = 290.0
+margin_bottom = 67.0
+size_flags_horizontal = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.8
 
 [node name="Label" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game6/VBoxContainer"]
-margin_right = 752.0
+margin_right = 290.0
 margin_bottom = 14.0
 text = "Game Saved: 07/10/2019. Fisherman Horizon"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game6/VBoxContainer"]
 margin_top = 18.0
-margin_right = 752.0
-margin_bottom = 118.0
+margin_right = 290.0
+margin_bottom = 67.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -588,85 +426,52 @@ stretch_mode = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game6"]
 editor/display_folded = true
-margin_left = 756.0
-margin_right = 944.0
-margin_bottom = 118.0
+margin_left = 501.0
+margin_right = 998.0
+margin_bottom = 67.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.2
 
 [node name="Label" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game6/VBoxContainer2"]
-margin_right = 188.0
+margin_right = 497.0
 margin_bottom = 14.0
 text = "Some other information"
 
 [node name="Label2" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game6/VBoxContainer2"]
 margin_top = 18.0
-margin_right = 188.0
+margin_right = 497.0
 margin_bottom = 32.0
 text = "This could be any trash"
 
 [node name="Label3" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game6/VBoxContainer2"]
 margin_top = 36.0
-margin_right = 188.0
-margin_bottom = 118.0
+margin_right = 497.0
+margin_bottom = 67.0
 text = "And this is a multiline example of the trash wich won't be happening aparently but I want to makeit as long as I can to see what happens"
 autowrap = true
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/Games/VBoxContainer/Game6"]
-margin_left = 948.0
-margin_right = 952.0
-margin_bottom = 118.0
-
-[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game6"]
-editor/display_folded = true
-margin_left = 956.0
-margin_right = 998.0
-margin_bottom = 118.0
-size_flags_vertical = 3
-
-[node name="Button" type="Button" parent="VBoxContainer/Games/VBoxContainer/Game6/VBoxContainer3"]
-margin_right = 42.0
-margin_bottom = 57.0
-size_flags_vertical = 3
-text = "Start"
-
-[node name="Button2" type="Button" parent="VBoxContainer/Games/VBoxContainer/Game6/VBoxContainer3"]
-margin_top = 61.0
-margin_right = 42.0
-margin_bottom = 118.0
-size_flags_vertical = 3
-text = "Host"
-
-[node name="HSeparator8" type="HSeparator" parent="VBoxContainer/Games/VBoxContainer"]
-margin_top = 780.0
-margin_right = 998.0
-margin_bottom = 784.0
-
 [node name="Game7" type="HBoxContainer" parent="VBoxContainer/Games/VBoxContainer"]
-editor/display_folded = true
-margin_top = 788.0
+margin_top = 434.0
 margin_right = 998.0
-margin_bottom = 906.0
+margin_bottom = 501.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game7"]
 editor/display_folded = true
-margin_right = 752.0
-margin_bottom = 118.0
-size_flags_horizontal = 3
+margin_right = 290.0
+margin_bottom = 67.0
+size_flags_horizontal = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.8
 
 [node name="Label" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game7/VBoxContainer"]
-margin_right = 752.0
+margin_right = 290.0
 margin_bottom = 14.0
 text = "Game Saved: 07/10/2019. Fisherman Horizon"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game7/VBoxContainer"]
 margin_top = 18.0
-margin_right = 752.0
-margin_bottom = 118.0
+margin_right = 290.0
+margin_bottom = 67.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -687,60 +492,232 @@ stretch_mode = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game7"]
 editor/display_folded = true
-margin_left = 756.0
-margin_right = 944.0
-margin_bottom = 118.0
+margin_left = 501.0
+margin_right = 998.0
+margin_bottom = 67.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.2
 
 [node name="Label" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game7/VBoxContainer2"]
-margin_right = 188.0
+margin_right = 497.0
 margin_bottom = 14.0
 text = "Some other information"
 
 [node name="Label2" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game7/VBoxContainer2"]
 margin_top = 18.0
-margin_right = 188.0
+margin_right = 497.0
 margin_bottom = 32.0
 text = "This could be any trash"
 
 [node name="Label3" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game7/VBoxContainer2"]
 margin_top = 36.0
-margin_right = 188.0
-margin_bottom = 118.0
+margin_right = 497.0
+margin_bottom = 67.0
 text = "And this is a multiline example of the trash wich won't be happening aparently but I want to makeit as long as I can to see what happens"
 autowrap = true
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/Games/VBoxContainer/Game7"]
-margin_left = 948.0
-margin_right = 952.0
-margin_bottom = 118.0
+[node name="Game8" type="HBoxContainer" parent="VBoxContainer/Games/VBoxContainer"]
+margin_top = 505.0
+margin_right = 998.0
+margin_bottom = 572.0
+size_flags_horizontal = 3
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game7"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game8"]
 editor/display_folded = true
-margin_left = 956.0
+margin_right = 290.0
+margin_bottom = 67.0
+size_flags_horizontal = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game8/VBoxContainer"]
+margin_right = 290.0
+margin_bottom = 14.0
+text = "Game Saved: 07/10/2019. Fisherman Horizon"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game8/VBoxContainer"]
+margin_top = 18.0
+margin_right = 290.0
+margin_bottom = 67.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Laguna" type="TextureRect" parent="VBoxContainer/Games/VBoxContainer/Game8/VBoxContainer/HBoxContainer"]
+margin_right = 38.0
+margin_bottom = 48.0
+size_flags_vertical = 0
+texture = ExtResource( 1 )
+stretch_mode = 1
+
+[node name="Squall" type="TextureRect" parent="VBoxContainer/Games/VBoxContainer/Game8/VBoxContainer/HBoxContainer"]
+margin_left = 42.0
+margin_right = 81.0
+margin_bottom = 48.0
+size_flags_vertical = 0
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game8"]
+editor/display_folded = true
+margin_left = 501.0
 margin_right = 998.0
-margin_bottom = 118.0
+margin_bottom = 67.0
+size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="VBoxContainer/Games/VBoxContainer/Game7/VBoxContainer3"]
-margin_right = 42.0
-margin_bottom = 57.0
-size_flags_vertical = 3
-text = "Start"
+[node name="Label" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game8/VBoxContainer2"]
+margin_right = 497.0
+margin_bottom = 14.0
+text = "Some other information"
 
-[node name="Button2" type="Button" parent="VBoxContainer/Games/VBoxContainer/Game7/VBoxContainer3"]
-margin_top = 61.0
-margin_right = 42.0
-margin_bottom = 118.0
-size_flags_vertical = 3
-text = "Host"
+[node name="Label2" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game8/VBoxContainer2"]
+margin_top = 18.0
+margin_right = 497.0
+margin_bottom = 32.0
+text = "This could be any trash"
 
-[node name="HSeparator5" type="HSeparator" parent="VBoxContainer/Games/VBoxContainer"]
-margin_top = 910.0
+[node name="Label3" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game8/VBoxContainer2"]
+margin_top = 36.0
+margin_right = 497.0
+margin_bottom = 67.0
+text = "And this is a multiline example of the trash wich won't be happening aparently but I want to makeit as long as I can to see what happens"
+autowrap = true
+
+[node name="Game9" type="HBoxContainer" parent="VBoxContainer/Games/VBoxContainer"]
+margin_top = 576.0
 margin_right = 998.0
-margin_bottom = 914.0
+margin_bottom = 643.0
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game9"]
+editor/display_folded = true
+margin_right = 290.0
+margin_bottom = 67.0
+size_flags_horizontal = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game9/VBoxContainer"]
+margin_right = 290.0
+margin_bottom = 14.0
+text = "Game Saved: 07/10/2019. Fisherman Horizon"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game9/VBoxContainer"]
+margin_top = 18.0
+margin_right = 290.0
+margin_bottom = 67.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Laguna" type="TextureRect" parent="VBoxContainer/Games/VBoxContainer/Game9/VBoxContainer/HBoxContainer"]
+margin_right = 38.0
+margin_bottom = 48.0
+size_flags_vertical = 0
+texture = ExtResource( 1 )
+stretch_mode = 1
+
+[node name="Squall" type="TextureRect" parent="VBoxContainer/Games/VBoxContainer/Game9/VBoxContainer/HBoxContainer"]
+margin_left = 42.0
+margin_right = 81.0
+margin_bottom = 48.0
+size_flags_vertical = 0
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game9"]
+editor/display_folded = true
+margin_left = 501.0
+margin_right = 998.0
+margin_bottom = 67.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game9/VBoxContainer2"]
+margin_right = 497.0
+margin_bottom = 14.0
+text = "Some other information"
+
+[node name="Label2" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game9/VBoxContainer2"]
+margin_top = 18.0
+margin_right = 497.0
+margin_bottom = 32.0
+text = "This could be any trash"
+
+[node name="Label3" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game9/VBoxContainer2"]
+margin_top = 36.0
+margin_right = 497.0
+margin_bottom = 67.0
+text = "And this is a multiline example of the trash wich won't be happening aparently but I want to makeit as long as I can to see what happens"
+autowrap = true
+
+[node name="Game10" type="HBoxContainer" parent="VBoxContainer/Games/VBoxContainer"]
+margin_top = 647.0
+margin_right = 998.0
+margin_bottom = 714.0
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game10"]
+editor/display_folded = true
+margin_right = 290.0
+margin_bottom = 67.0
+size_flags_horizontal = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game10/VBoxContainer"]
+margin_right = 290.0
+margin_bottom = 14.0
+text = "Game Saved: 07/10/2019. Fisherman Horizon"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game10/VBoxContainer"]
+margin_top = 18.0
+margin_right = 290.0
+margin_bottom = 67.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Laguna" type="TextureRect" parent="VBoxContainer/Games/VBoxContainer/Game10/VBoxContainer/HBoxContainer"]
+margin_right = 38.0
+margin_bottom = 48.0
+size_flags_vertical = 0
+texture = ExtResource( 1 )
+stretch_mode = 1
+
+[node name="Squall" type="TextureRect" parent="VBoxContainer/Games/VBoxContainer/Game10/VBoxContainer/HBoxContainer"]
+margin_left = 42.0
+margin_right = 81.0
+margin_bottom = 48.0
+size_flags_vertical = 0
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/Games/VBoxContainer/Game10"]
+editor/display_folded = true
+margin_left = 501.0
+margin_right = 998.0
+margin_bottom = 67.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game10/VBoxContainer2"]
+margin_right = 497.0
+margin_bottom = 14.0
+text = "Some other information"
+
+[node name="Label2" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game10/VBoxContainer2"]
+margin_top = 18.0
+margin_right = 497.0
+margin_bottom = 32.0
+text = "This could be any trash"
+
+[node name="Label3" type="Label" parent="VBoxContainer/Games/VBoxContainer/Game10/VBoxContainer2"]
+margin_top = 36.0
+margin_right = 497.0
+margin_bottom = 67.0
+text = "And this is a multiline example of the trash wich won't be happening aparently but I want to makeit as long as I can to see what happens"
+autowrap = true
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/Games/VBoxContainer"]
+margin_top = 718.0
+margin_right = 998.0
+margin_bottom = 722.0
 
 [node name="Back" type="Button" parent="VBoxContainer"]
 margin_top = 566.0
