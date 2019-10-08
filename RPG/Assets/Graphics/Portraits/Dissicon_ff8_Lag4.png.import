@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Dissicon_ff8_Squ3.png-fd364db6bf777c811f7a37562b9d6af9.stex"
+path="res://.import/Dissicon_ff8_Lag4.png-0d7cb8f973716bbd1574b838b05b4126.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Graphics/Avatars/Dissicon_ff8_Squ3.png"
-dest_files=[ "res://.import/Dissicon_ff8_Squ3.png-fd364db6bf777c811f7a37562b9d6af9.stex" ]
+source_file="res://Assets/Graphics/Portraits/Dissicon_ff8_Lag4.png"
+dest_files=[ "res://.import/Dissicon_ff8_Lag4.png-0d7cb8f973716bbd1574b838b05b4126.stex" ]
 
 [params]
 

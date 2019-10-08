@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends VBoxContainer
+
+onready var portraitList : HBoxContainer = $CharactersPortrait
+
+func initialise(username : String, characters : Array):
+	print(\"HELLOWIII\", characters)
+	$Username.text = username
+	for character in characters:
+		var textureRect : TextureRect = TextureRect.new()
+		var image = load(ResourcesManager.characters[character.look].portrait)
+		textureRect.set_texture(image)
+		portraitList.add_child(textureRect)"
+
+[node name="GameLoadedCharacters" type="VBoxContainer"]
+margin_right = 123.0
+margin_bottom = 66.0
+script = SubResource( 1 )
+
+[node name="Username" type="Label" parent="."]
+margin_right = 123.0
+margin_bottom = 14.0
+text = "Rido"
+
+[node name="CharactersPortrait" type="HBoxContainer" parent="."]
+margin_top = 18.0
+margin_right = 123.0
+margin_bottom = 18.0

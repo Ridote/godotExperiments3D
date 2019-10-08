@@ -26,6 +26,7 @@ msgpack="*res://Autoloads/msgpack.gd"
 Players="*res://Autoloads/Players.gd"
 Logger="*res://Autoloads/Logger.gd"
 Groups="*res://Autoloads/Groups.gd"
+ResourcesManager="*res://Autoloads/ResourcesManager.gd"
 
 [debug]
 
