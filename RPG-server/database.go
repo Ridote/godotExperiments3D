@@ -8,9 +8,11 @@ func setupDB() *gorm.DB {
 		panic("failed to connect database")
 	}
 
+	db = db.Set("gorm:auto_preload", true)
 	db.AutoMigrate(&DBUser{})
 	db.AutoMigrate(&DBCharacter{})
 	db.AutoMigrate(&DBItem{})
+	db.AutoMigrate(&DBGame{})
 
 	return db
 }

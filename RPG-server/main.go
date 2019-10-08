@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/hex"
 	"fmt"
 	"log"
 	"net/http"
@@ -65,7 +66,7 @@ func handle(w http.ResponseWriter, r *http.Request) {
 						continue
 					}
 					u.Username = reg.Username
-					u.Password = reg.Password
+					u.Password = hex.EncodeToString([]byte(reg.Password))
 
 					db.Create(&u)
 
@@ -78,7 +79,7 @@ func handle(w http.ResponseWriter, r *http.Request) {
 				}
 				// LOGIN
 				db.Where("username = ?", l.Username).First(&u)
-				if l.Password == u.Password {
+				if hex.EncodeToString([]byte(l.Password)) == u.Password {
 					c.WriteMessage(websocket.BinaryMessage, encodeMsg("auth", MSAuth{
 						Msg:     "authentication succesful!",
 						Success: true,
@@ -113,7 +114,21 @@ func msgHandler(msg []byte, u *DBUser, c *websocket.Conn) {
 		var players []DBCharacter
 		db.Find(&players).Related(u)
 		for _, p := range players {
-			c.WriteMessage(websocket.BinaryMessage, encodeMsg("newCharacter", p))
+			c.WriteMessage(websocket.BinaryMessage, encodeMsg("character", p))
+		}
+	case "newGame":
+		m := decodeMsg(msg).(MCNewGame)
+		var g DBGame
+		g.Users = append(g.Users, *u)
+		g.Lock = m.Lock
+		fmt.Printf("game created %+v\n", g)
+		db.Create(&g)
+	case "loadGames":
+		var games []DBGame
+		db.Model(&u).Related(&games, "Games")
+		for _, p := range games {
+			fmt.Printf("game %+v\n", p)
+			c.WriteMessage(websocket.BinaryMessage, encodeMsg("game", p))
 		}
 	}
 }

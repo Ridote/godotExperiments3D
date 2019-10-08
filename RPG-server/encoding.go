@@ -48,6 +48,9 @@ func encodeMsg(kind string, payload interface{}) []byte {
 	case "talk":
 		r := payload.(MSTalk)
 		p, _ = r.MarshalMsg(nil)
+	case "game":
+		r := payload.(DBGame)
+		p, _ = r.MarshalMsg(nil)
 	}
 	m := MSG{
 		Kind:    kind,
@@ -138,6 +141,13 @@ func decodeMsg(m []byte) interface{} {
 		return r
 	case "answer":
 		var r MCAnswer
+		_, err := r.UnmarshalMsg([]byte(aux))
+		if err != nil {
+			fmt.Println("case answer unmarshall Error:", err)
+		}
+		return r
+	case "newGame":
+		var r MCNewGame
 		_, err := r.UnmarshalMsg([]byte(aux))
 		if err != nil {
 			fmt.Println("case answer unmarshall Error:", err)
