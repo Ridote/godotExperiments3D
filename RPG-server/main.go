@@ -106,14 +106,14 @@ func msgHandler(msg []byte, u *DBUser, c *websocket.Conn) {
 		m := decodeMsg(msg).(MCNewCharacter)
 		var p DBCharacter
 		p.Name = m.Name
-		p.Owner = *u
+		p.Owner = u.ID
 		p.HP = 100
 		p.CurrentHP = 100
 		db.Create(&p)
 	case "getCharacters":
-		var players []DBCharacter
-		db.Find(&players).Related(u)
-		for _, p := range players {
+		var characters []DBCharacter
+		db.Find(&characters).Related(u)
+		for _, p := range characters {
 			c.WriteMessage(websocket.BinaryMessage, encodeMsg("character", p))
 		}
 	case "newGame":
@@ -121,6 +121,18 @@ func msgHandler(msg []byte, u *DBUser, c *websocket.Conn) {
 		var g DBGame
 		g.Users = append(g.Users, *u)
 		g.Lock = m.Lock
+
+		// Debug only, create character
+		var c DBCharacter
+		c.Look = 1
+		c.Name = "DebugElNoob1"
+		c.Owner = u.ID
+		var c2 DBCharacter
+		c2.Look = 0
+		c2.Name = "DebugElNoob2"
+		c2.Owner = u.ID
+		g.Characters = append(g.Characters, c)
+		g.Characters = append(g.Characters, c2)
 		fmt.Printf("game created %+v\n", g)
 		db.Create(&g)
 	case "loadGames":

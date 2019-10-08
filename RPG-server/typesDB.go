@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/gorilla/websocket"
-	"github.com/jinzhu/gorm"
 	"github.com/tinylib/msgp/msgp"
 )
 
@@ -19,28 +18,30 @@ const (
 )
 
 type DBItem struct {
-	gorm.Model `msg:"-"`
-	Category   DBItemCategory
+	ID       uint `gorm:"primary_key"`
+	Category DBItemCategory
 }
 type DBInventory struct {
-	gorm.Model `msg:"-"`
-	Space      int
-	Items      []DBItem
+	ID    uint `gorm:"primary_key"`
+	Space int
+	Items []DBItem
 }
 
 type DBUser struct {
-	gorm.Model `msg:"-"`
-	Username   string
-	Password   string      // hashed
-	Inventory  DBInventory `msg:"inventory"`
-	ws         *websocket.Conn
-	Games      []DBGame `msg:"games" gorm:"many2many:user_games;"`
+	ID        uint        `gorm:"primary_key"`
+	Username  string      `msg:"username"`
+	Password  string      `msg:"password"`
+	Inventory DBInventory `msg:"inventory"`
+	ws        *websocket.Conn
+	Games     []DBGame `msg:"games" gorm:"many2many:user_games;"`
 }
 
 type DBCharacter struct {
-	gorm.Model     `msg:"-"`
-	Owner          DBUser
+	ID             uint `gorm:"primary_key"`
+	Owner          uint `msg:"owner"`
+	Game           uint
 	PX, PY, PZ, RY int
+	Look           int    `msg:"look"`
 	Name           string `msg:"name"`
 	Class          string `msg:"class"`
 	HP             int    `msg:"HP"`
@@ -54,10 +55,10 @@ type DBCharacter struct {
 }
 
 type DBGame struct {
-	gorm.Model `msg:"-"`
+	ID         uint          `gorm:"primary_key"`
 	Time       int           `msg:"time"`
 	Users      []DBUser      `msg:"users" gorm:"many2many:user_games;"`
-	Characters []DBCharacter `msg:"characters"`
+	Characters []DBCharacter `msg:"characters" gorm:"foreignkey:Game"`
 	Lock       bool          `msg:"lock"` // defines if all users must be connected to be able to play this game
 }
 
