@@ -2,7 +2,9 @@ extends Node
 
 const REQUEST_TYPE = {
 	login = "login",
-	signup = "register"
+	signup = "register",
+	new_game = "newGame",
+	load_games = "loadGames"
 }
 
 var ws = null
@@ -20,9 +22,14 @@ func sendRequest(_type, _payload):
 	
 	ws.get_peer(1).put_packet(msg)
 
-func login(username, password):
+func login(username : String, password : String):
 	sendRequest(REQUEST_TYPE.login, {username=username, password=password})
 
-func signup(username, password):
+func signup(username : String, password : String):
 	sendRequest(REQUEST_TYPE.signup, {username=username, password=password})
-	
+
+func newGame(lock : bool):
+	sendRequest(REQUEST_TYPE.new_game, {lock=lock})
+
+func loadGames():
+	sendRequest(REQUEST_TYPE.load_games, null)

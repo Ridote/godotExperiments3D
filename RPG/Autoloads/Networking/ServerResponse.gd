@@ -4,11 +4,13 @@ extends Node
 
 const RESPONSE_TYPE = {
 	auth = "auth",
-	signup = "signup"
+	signup = "signup",
+	game = "game"
 }
 
 signal auth_success(success, msg)
 signal signup_success(success, msg)
+signal game_received(id, time, lock, users, characters)
 
 func processResponse(packet):
 	Logger.info("Packet received(" + packet.type + ")", Groups.NETWORKING)
@@ -17,14 +19,15 @@ func processResponse(packet):
 			auth(packet.payload.success, packet.payload.msg)
 		RESPONSE_TYPE.signup:
 			signup(packet.payload.success, packet.payload.msg)
-
+		RESPONSE_TYPE.game:
+			# TODO!!
+			print(packet.payload)
+			emit_signal("game_received", 0, packet.payload.time, packet.payload.lock, packet.payload.users, packet.payload.characters)
 # Admin
 func auth(status, msg = ""):
 	if status:
 		Logger.info(msg, "Networking")
 		emit_signal("auth_success", true, msg)
-		# TODO load entry
-		get_tree().quit()
 	else:
 		Logger.error(msg, "Networking")
 		emit_signal("auth_success", false, msg)

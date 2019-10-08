@@ -22,7 +22,7 @@ func _ready():
 	var url = "ws://pc.galax.be:1616"
 	# var url = "ws://localhost:1616"
 	Logger.info("Connecting to " + url, Groups.NETWORKING)
-	#ws.connect_to_url(url)
+	ws.connect_to_url(url)
 	
 	
 func _connection_established(protocol):
