@@ -4,10 +4,10 @@
 script/source = "extends HBoxContainer
 
 # could perhaps be this name any longer?
-const GAME_LOADED_CHARACTERS_FACTORY = preload(\"res://GUI/StartMenu/GameLoadedCharacters.tscn\")
+const GAME_LOADED_CHARACTERS_FACTORY = preload(\"res://GUI/StartMenu/GameSelectionScreen/GameLoadedCharacters.tscn\")
 
 onready var charactersPortraits : HBoxContainer = $VBoxContainer/Characters
-
+onready var timeAndMap : Label = $VBoxContainer/TimeAndMap
 var id = -1
 
 # TODO
@@ -15,6 +15,7 @@ var id = -1
 func initialise(_id : int, time : int, lock : bool, users: Array, characters : Array):
 	id = _id
 	
+	timeAndMap.text =  + \". \" + ResourcesManager.maps[characters[0].map].name
 	for user in users:
 		var portraits = GAME_LOADED_CHARACTERS_FACTORY.instance()
 		var characterList = []

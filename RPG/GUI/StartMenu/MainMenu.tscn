@@ -3,7 +3,7 @@
 [sub_resource type="GDScript" id=1]
 script/source = "extends PanelContainer
 
-const LOAD_GAMES : String = \"res://GUI/StartMenu/LoadGames.tscn\"
+const LOAD_GAMES : String = \"res://GUI/StartMenu/GameSelectionScreen/GamesLoader.tscn\"
 
 onready var start : Button = $VBoxContainer/StartNewGame
 onready var loadGame : Button = $VBoxContainer/LoadGame

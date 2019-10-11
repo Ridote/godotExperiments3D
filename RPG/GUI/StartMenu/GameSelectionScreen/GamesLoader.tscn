@@ -4,7 +4,7 @@
 script/source = "extends PanelContainer
 
 const MAIN_MENU : String = \"res://GUI/StartMenu/MainMenu.tscn\"
-const GAME_LOADED_FACTORY = preload(\"res://GUI/StartMenu/GameLoaded.tscn\")
+const GAME_LOADED_FACTORY = preload(\"res://GUI/StartMenu/GameSelectionScreen/GameLoaded.tscn\")
 
 onready var backButton : Button = $VBoxContainer/Back
 onready var gameList : VBoxContainer = $VBoxContainer/GameContainer/GameList
